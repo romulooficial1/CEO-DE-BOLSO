@@ -9,9 +9,9 @@
   <meta property="og:title" content="CEO de Bolso AI" />
   <meta property="og:description" content="Seu consultor empresarial inteligente para finanças, marketing, vendas e crescimento." />
   <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googlesistemas.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googlesistemas.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   <style>
     :root{
@@ -46,9 +46,8 @@
     .feature-card:before,.price-card:before,.panel:before,.mockup:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.055),transparent);transform:translateX(-120%);transition:transform .75s ease;pointer-events:none}
     .feature-card:hover:before,.price-card:hover:before,.panel:hover:before,.mockup:hover:before{transform:translateX(120%)}
     .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 6px rgba(34,197,94,.12)}
-    .kbd-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.kbd-row button{min-height:34px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);color:var(--soft);padding:0 10px}
+    .kbd-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;grid-column:1/-1}.kbd-row button{min-height:34px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);color:var(--soft);padding:0 10px}
     .auth-card{animation:modalIn .24s ease}@keyframes modalIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
-    .loading-shimmer{background:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,.12),rgba(255,255,255,.06));background-size:200% 100%;animation:shimmer 1.2s infinite}@keyframes shimmer{to{background-position:-200% 0}}
     .mini-brandline{margin-top:16px;color:var(--muted);font-size:.92rem}.mini-brandline strong{color:var(--text)}
 
   </style>
@@ -72,7 +71,7 @@
       <div class="hero-grid">
         <div class="reveal">
           <span class="eyebrow"><span class="status-dot"></span> Consultoria empresarial inteligente</span>
-          <h1>Seu <span class="gradient-text">CEO de bolso</span> para crescer o negócio</h1>
+          <h1>Seu <span class="gradient-text">CEO de bolso</span> para crescer com clareza</h1>
           <p>Transforme dados simples do seu negócio em decisões claras: o que vender, onde economizar, o que postar e qual ação fazer primeiro.</p><div class="mini-brandline"><strong>Feito para quem empreende sozinho</strong> e precisa decidir com segurança todos os dias.</div>
           <div class="hero-actions">
             <button class="btn btn-primary" data-open-auth="signup"><i data-lucide="rocket"></i>Começar grátis</button>
@@ -117,7 +116,7 @@
           <article class="feature-card reveal"><i data-lucide="list-checks"></i><h3>Planos de ação</h3><p>Planos de 7, 30 e 90 dias com tarefas organizadas por dia ou semana.</p></article>
           <article class="feature-card reveal"><i data-lucide="megaphone"></i><h3>Marketing IA</h3><p>Posts, legendas, anúncios, promoções e calendário semanal de conteúdo.</p></article>
           <article class="feature-card reveal"><i data-lucide="file-down"></i><h3>Relatório</h3><p>Relatório executivo imprimível em PDF pelo próprio navegador.</p></article>
-          <article class="feature-card reveal"><i data-lucide="shield-check"></i><h3>Login opcional</h3><p>Seu acesso fica protegido e seus dados do negócio permanecem vinculados à sua conta.</p></article>
+          <article class="feature-card reveal"><i data-lucide="shield-check"></i><h3>Conta protegida</h3><p>Acesse seu painel, organize seus dados e mantenha tudo vinculado à sua conta.</p></article>
           <article class="feature-card reveal"><i data-lucide="smartphone"></i><h3>Experiência completa</h3><p>Landing page, painel, consultor, planejamento, marketing e relatórios em uma experiência integrada.</p></article>
         </div>
       </div>
@@ -165,7 +164,7 @@
   <main id="app" class="hidden">
     <div class="app-shell">
       <aside class="sidebar">
-        <div class="user-box"><strong id="userName">Usuário</strong><span class="muted" id="userEmail">conta ativa</span><div style="margin-top:10px"><span class="pill premium-pill free" id="premiumStatus">Gratuito</span></div><p class="muted" id="usageStatus">0/5 usos IA</p></div>
+        <div class="user-box"><strong id="userName">Usuário</strong><span class="muted" id="userEmail">modo local</span><div style="margin-top:10px"><span class="pill premium-pill free" id="premiumStatus">Gratuito</span></div><p class="muted" id="usageStatus">0/5 usos IA</p></div>
         <button class="nav-btn active" data-view="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button>
         <button class="nav-btn" data-view="business"><i data-lucide="store"></i>Negócio</button>
         <button class="nav-btn" data-view="chat"><i data-lucide="messages-square"></i>Consultor IA</button>
@@ -281,9 +280,9 @@
 
   function loadState(){
     const base = {user:null,business:null,premium:false,usage:{},history:[],lastDiagnosis:null};
-    try { return {...base, ...(JSON.parse(armazenamento seguro do navegador.getItem(STORAGE)||"{}"))}; } catch { return base; }
+    try { return {...base, ...(JSON.parse(localStorage.getItem(STORAGE)||"{}"))}; } catch { return base; }
   }
-  function saveState(){ armazenamento seguro do navegador.setItem(STORAGE, JSON.stringify(state)); }
+  function saveState(){ localStorage.setItem(STORAGE, JSON.stringify(state)); }
   function monthKey(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`; }
   function usage(){ return Number(state.usage[monthKey()]||0); }
   function premium(){ return !!state.premium; }
@@ -339,7 +338,7 @@
     if(!canUseAI()){ setView("premium"); throw new Error("Limite gratuito atingido. Ative o Premium."); }
     const payload={action,business:state.business,premium:premium(),...extra};
     try{
-      const res=await fetch("/sistema/ia",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      const res=await fetch("/api/ia",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
       if(res.ok){ const json=await res.json(); incUsage(); return json.data||json; }
     }catch(e){}
     const data=localAI(action,extra); incUsage(); return data;
@@ -395,7 +394,7 @@
   }
 
   function showLegal(type){
-    const privacy = `<span class="eyebrow">Privacidade</span><h1>Política de privacidade</h1><p>Coletamos dados de conta, dados do negócio, histórico de perguntas e status de assinatura para operar o CEO de Bolso AI.</p><p>Nesta versão em arquivo único, os dados podem ficar no armazenamento seguro do navegador do navegador. Se você conectar sistema de contas e sistemas, os dados podem ser salvos em nuvem por usuário autenticado.</p><p>Pagamentos são processados por provedor externo quando a sistema estiver configurada. Não armazenamos dados completos de cartão.</p>`;
+    const privacy = `<span class="eyebrow">Privacidade</span><h1>Política de privacidade</h1><p>Coletamos dados de conta, dados do negócio, histórico de perguntas e status de assinatura para operar o CEO de Bolso AI.</p><p>Nesta versão em arquivo único, os dados podem ficar no localStorage do navegador. Se você conectar Firebase e APIs, os dados podem ser salvos em nuvem por usuário autenticado.</p><p>Pagamentos são processados por provedor externo quando a API estiver configurada. Não armazenamos dados completos de cartão.</p>`;
     const terms = `<span class="eyebrow">Termos</span><h1>Termos de uso</h1><p>O CEO de Bolso AI oferece apoio gerencial, financeiro e de marketing com IA. As recomendações não substituem contabilidade, consultoria jurídica ou auditoria profissional.</p><p>Usuários gratuitos possuem limite de 5 usos de IA por mês. Recursos premium dependem de assinatura ativa.</p><p>O usuário é responsável por revisar as recomendações antes de aplicar qualquer decisão no negócio.</p>`;
     $("#landing").classList.add("hidden"); $("#app").classList.add("hidden"); $("#legal").classList.remove("hidden"); $("#legalContent").innerHTML=type==="privacy"?privacy:terms; window.scrollTo(0,0);
   }
@@ -413,8 +412,8 @@
     $("#closeAuth").addEventListener("click",closeAuth); $("#authModal").addEventListener("click",e=>{if(e.target.id==="authModal")closeAuth()});
     $("#toggleAuth").addEventListener("click",()=>openAuth($("#authModal").dataset.mode==="signup"?"login":"signup"));
     $("#authSubmit").addEventListener("click",()=>loginLocal($("#authModal").dataset.mode||"login"));
-    $("#authGoogle").addEventListener("click",()=>{ state.user={email:"google-demo@ceodebolso.ai",name:"Google Demo",mode:"google"}; saveState(); closeAuth(); showApp(); toast("Google em conta ativa. Configure sistema de contas para login real."); });
-    $("#resetPassword").addEventListener("click",()=>toast("Recuperação de senha precisa de sistema de contas. No conta ativa, crie uma nova conta."));
+    $("#authGoogle").addEventListener("click",()=>{ state.user={email:"google-demo@ceodebolso.ai",name:"Google Demo",mode:"google"}; saveState(); closeAuth(); showApp(); toast("Google em conta ativa. Configure Firebase para login real."); });
+    $("#resetPassword").addEventListener("click",()=>toast("Recuperação de senha precisa de Firebase. No conta ativa, crie uma nova conta."));
     $("#openDemo").addEventListener("click",()=>{ if(!state.user){state.user={email:"demo@ceodebolso.ai",name:"Demo",mode:"demo"};saveState()} showApp(); });
     $("#premiumLanding").addEventListener("click",()=>{ if(!state.user){openAuth("signup")} else {showApp();setView("premium")} });
     $("#backLanding").addEventListener("click",showLanding);
@@ -433,7 +432,7 @@
     $("#exportPdf").addEventListener("click",()=>{ if(!state.business){toast("Cadastre o negócio antes.");setView("business");return} buildReport(); setTimeout(()=>window.print(),250); });
     $("#upgradeTop").addEventListener("click",()=>setView("premium"));
     $("#localPremium").addEventListener("click",()=>{state.premium=true;saveState();renderUsage();toast("Premium liberado nesta conta.");});
-    $("#startPayment").addEventListener("click",async()=>{ const btn=$("#startPayment"); setLoading(btn,true,"Abrindo..."); try{ const res=await fetch("/sistema/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:state.user?.email})}); if(res.ok){const j=await res.json(); if(j.init_point){location.href=j.init_point;return}} throw new Error("A assinatura online ainda está sendo finalizada. Entre em contato para liberar o Premium."); }catch(e){toast(e.message)} finally{setLoading(btn,false)}});
+    $("#startPayment").addEventListener("click",async()=>{ const btn=$("#startPayment"); setLoading(btn,true,"Abrindo..."); try{ const res=await fetch("/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:state.user?.email})}); if(res.ok){const j=await res.json(); if(j.init_point){location.href=j.init_point;return}} throw new Error("A assinatura online ainda está sendo finalizada. Entre em contato para liberar o Premium."); }catch(e){toast(e.message)} finally{setLoading(btn,false)}});
     $$("[data-legal]").forEach(b=>b.addEventListener("click",()=>showLegal(b.dataset.legal))); $("#closeLegal").addEventListener("click",showLanding);
 
     if(state.user) renderAll();
