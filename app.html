@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>App | CEO de Bolso AI</title>
+    <meta name="description" content="Dashboard, consultor IA, diagnostico, marketing, planos e relatorios do CEO de Bolso AI." />
+    <meta name="theme-color" content="#0b1020" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css?v=1" />
+    <script src="/firebase-config.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="/firebase.js?v=1" defer></script>
+    <script src="/app.js?v=1" defer></script>
+  </head>
+  <body class="app-body" data-page="app">
+    <div class="auth-modal open" id="authGate">
+      <div class="auth-card">
+        <div class="footer-brand"><img src="/assets/logo.svg" alt="" /><span>CEO de Bolso AI</span></div>
+        <h2>Acesse sua conta</h2>
+        <p class="muted">Esta area e protegida. Entre com e-mail, senha ou Google para continuar.</p>
+        <div class="form-grid">
+          <label>E-mail<input id="gateEmail" type="email" placeholder="voce@empresa.com" /></label>
+          <label>Senha<input id="gatePassword" type="password" placeholder="sua senha" /></label>
+          <div class="auth-actions">
+            <button class="btn btn-primary" id="gateLogin">Entrar</button>
+            <button class="btn btn-secondary" id="gateSignup">Criar conta</button>
+            <button class="btn btn-secondary" id="gateGoogle"><i data-lucide="chrome"></i>Google</button>
+          </div>
+          <button class="text-btn" id="gateReset">Recuperar senha</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-shell" id="appShell" hidden>
+      <aside class="side-nav">
+        <div class="side-brand"><img src="/assets/logo.svg" alt="" /><span>CEO de Bolso AI</span></div>
+        <nav class="nav-list" aria-label="Modulos">
+          <button class="active" data-view="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button>
+          <button data-view="business"><i data-lucide="briefcase-business"></i>Negocio</button>
+          <button data-view="chat"><i data-lucide="messages-square"></i>Consultor IA</button>
+          <button data-view="diagnosis"><i data-lucide="scan-line"></i>Diagnostico</button>
+          <button data-view="plans"><i data-lucide="list-checks"></i>Planos</button>
+          <button data-view="marketing"><i data-lucide="megaphone"></i>Marketing IA</button>
+          <button data-view="reports"><i data-lucide="file-down"></i>Relatorios</button>
+          <button data-view="premium"><i data-lucide="gem"></i>Premium</button>
+        </nav>
+        <div class="side-footer"><button class="btn btn-secondary" id="logoutBtn"><i data-lucide="log-out"></i>Sair</button></div>
+      </aside>
+
+      <main class="app-main">
+        <div class="app-topbar">
+          <div class="app-title">
+            <h1 id="appHeading">Dashboard executivo</h1>
+            <p id="appSubheading">Seu consultor empresarial em tempo real.</p>
+          </div>
+          <div class="row-actions">
+            <span class="status-pill free" id="premiumStatus">Gratuito</span>
+            <span class="pill" id="usageStatus">0/5 usos IA</span>
+            <button class="btn btn-primary small" id="upgradeTop">Assinar Premium</button>
+          </div>
+        </div>
+
+        <section class="view active" id="view-dashboard">
+          <div class="grid dashboard-grid">
+            <article class="app-card"><span class="muted">Faturamento</span><strong class="big-number" id="dashRevenue">R$ 0</strong></article>
+            <article class="app-card"><span class="muted">Despesas</span><strong class="big-number" id="dashExpenses">R$ 0</strong></article>
+            <article class="app-card"><span class="muted">Lucro estimado</span><strong class="big-number" id="dashProfit">R$ 0</strong></article>
+            <article class="app-card"><span class="muted">Score empresarial</span><strong class="big-number" id="dashScore">0/100</strong></article>
+          </div>
+          <div class="grid wide-grid" style="margin-top: 14px">
+            <article class="app-card">
+              <h2 id="businessTitle">Cadastre seu negocio</h2>
+              <p class="muted" id="monthSummary">Preencha seus dados para receber analises reais.</p>
+              <div class="grid dashboard-grid" style="margin-top: 14px">
+                <div><span class="muted">Clientes</span><strong class="big-number" id="dashCustomers">0</strong></div>
+                <div><span class="muted">Ticket medio</span><strong class="big-number" id="dashTicket">R$ 0</strong></div>
+                <div><span class="muted">Meta mensal</span><strong class="big-number" id="dashGoal">R$ 0</strong></div>
+                <div><span class="muted">Progresso</span><strong class="big-number" id="dashProgress">0%</strong></div>
+              </div>
+            </article>
+            <article class="app-card">
+              <h2>Alertas da IA</h2>
+              <div class="alert-list" id="alertList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-business">
+          <article class="app-card">
+            <h2>Cadastro do negocio</h2>
+            <form class="form-grid two-cols" id="businessForm">
+              <label>Nome do negocio<input name="name" required placeholder="Ex: Studio Ana" /></label>
+              <label>Area de atuacao<input name="type" required placeholder="Ex: Beleza, servicos, varejo" /></label>
+              <label>Cidade/Pais<input name="location" required placeholder="Fortaleza, Brasil" /></label>
+              <label>Faturamento medio mensal<input name="revenue" type="number" required min="0" /></label>
+              <label>Despesas medias mensais<input name="expenses" type="number" required min="0" /></label>
+              <label>Clientes por mes<input name="customers" type="number" required min="0" /></label>
+              <label>Meta mensal<input name="goal" type="number" required min="0" /></label>
+              <label>Principal dificuldade<input name="challenge" required placeholder="Ex: conseguir mais clientes" /></label>
+              <label style="grid-column: 1 / -1">Meta principal<textarea name="mainGoal" required placeholder="Ex: crescer 30% mantendo lucro"></textarea></label>
+              <button class="btn btn-primary" type="submit"><i data-lucide="save"></i>Salvar dados</button>
+            </form>
+          </article>
+        </section>
+
+        <section class="view" id="view-chat">
+          <article class="app-card">
+            <h2>Consultor IA</h2>
+            <div class="quick-row" id="quickQuestions">
+              <button>Como aumentar meu faturamento?</button>
+              <button>Onde estou perdendo dinheiro?</button>
+              <button>O que devo postar essa semana?</button>
+              <button>Meu preco esta bom?</button>
+              <button>Como conseguir mais clientes?</button>
+              <button>Crie um plano de acao de 7 dias.</button>
+            </div>
+            <div class="chat-list" id="chatList">
+              <div class="chat-message ai">Pronto. Vou usar os dados do seu negocio para responder com estrategia financeira, marketing e crescimento.</div>
+            </div>
+            <div class="row-actions" style="margin-top: 12px">
+              <input id="chatInput" placeholder="Pergunte ao seu CEO de Bolso..." />
+              <button class="btn btn-primary" id="sendChat"><i data-lucide="send"></i>Enviar</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="view" id="view-diagnosis">
+          <article class="app-card">
+            <div class="row-actions" style="justify-content: space-between"><h2>Diagnostico empresarial</h2><button class="btn btn-primary" id="generateDiagnosis"><i data-lucide="sparkles"></i>Gerar Diagnostico</button></div>
+            <div class="result-list" id="diagnosisResult"></div>
+          </article>
+        </section>
+
+        <section class="view" id="view-plans">
+          <article class="app-card">
+            <div class="row-actions" style="justify-content: space-between"><h2>Plano de acao</h2><div class="row-actions"><button class="btn btn-secondary small" data-plan="7">7 dias</button><button class="btn btn-secondary small" data-plan="30">30 dias</button><button class="btn btn-primary small" data-plan="90">90 dias</button></div></div>
+            <div class="timeline" id="planResult"></div>
+          </article>
+        </section>
+
+        <section class="view" id="view-marketing">
+          <article class="app-card">
+            <div class="row-actions" style="justify-content: space-between"><h2>Marketing IA</h2><button class="btn btn-primary" id="generateMarketing"><i data-lucide="wand-sparkles"></i>Gerar campanha</button></div>
+            <div class="result-list" id="marketingResult"></div>
+          </article>
+        </section>
+
+        <section class="view" id="view-reports">
+          <article class="app-card">
+            <h2>Relatorio PDF</h2>
+            <p class="muted">Exporte um PDF profissional com nome do negocio, data, resumo financeiro, diagnostico, plano de acao e recomendacoes da IA.</p>
+            <button class="btn btn-primary" id="exportPdf"><i data-lucide="file-down"></i>Exportar PDF</button>
+          </article>
+        </section>
+
+        <section class="view" id="view-premium">
+          <article class="app-card">
+            <span class="eyebrow">Premium</span>
+            <h2>Desbloqueie IA ilimitada por R$ 29,90/mes</h2>
+            <ul class="check-list">
+              <li><i data-lucide="check"></i>IA ilimitada</li>
+              <li><i data-lucide="check"></i>Relatorios PDF</li>
+              <li><i data-lucide="check"></i>Plano de 90 dias</li>
+              <li><i data-lucide="check"></i>Marketing IA ilimitado</li>
+            </ul>
+            <button class="btn btn-primary" id="startPayment"><i data-lucide="credit-card"></i>Assinar com Mercado Pago</button>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Navegacao mobile">
+      <button class="active" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span>Home</span></button>
+      <button data-view="chat"><i data-lucide="messages-square"></i><span>IA</span></button>
+      <button data-view="diagnosis"><i data-lucide="scan-line"></i><span>Diag</span></button>
+      <button data-view="plans"><i data-lucide="list-checks"></i><span>Plano</span></button>
+      <button data-view="premium"><i data-lucide="gem"></i><span>Premium</span></button>
+    </nav>
+
+    <div class="onboarding" id="onboarding">
+      <div class="modal-card">
+        <h2>Configure seu negocio</h2>
+        <p class="muted">Preencha os dados iniciais para o dashboard, a IA e os relatorios funcionarem com contexto real.</p>
+        <button class="btn btn-primary" id="goBusinessSetup">Cadastrar agora</button>
+      </div>
+    </div>
+    <div class="toast-host" id="toastHost"></div>
+  </body>
+</html>

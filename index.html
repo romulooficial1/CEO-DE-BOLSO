@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CEO de Bolso AI | Seu consultor empresarial com IA</title>
+    <meta name="description" content="Financas, marketing, vendas e crescimento em um so lugar para pequenos negocios, MEIs e freelancers." />
+    <meta property="og:title" content="CEO de Bolso AI" />
+    <meta property="og:description" content="Seu consultor empresarial com IA para financas, marketing, vendas e crescimento." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0b1020" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css?v=1" />
+    <script src="/firebase-config.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="/firebase.js?v=1" defer></script>
+    <script src="/app.js?v=1" defer></script>
+  </head>
+  <body data-page="landing">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <img src="/assets/logo.svg" alt="" />
+        <span>CEO de Bolso AI</span>
+      </a>
+      <nav class="main-nav" aria-label="Navegacao principal">
+        <a href="#beneficios">Beneficios</a>
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#precos">Planos</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-secondary small" data-open-auth="login">Entrar</button>
+        <button class="btn btn-primary small" data-open-auth="signup">Come&ccedil;ar gr&aacute;tis</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="reveal">
+          <span class="eyebrow">Consultoria empresarial 24h com IA</span>
+          <h1>Seu consultor empresarial com IA</h1>
+          <p>Finan&ccedil;as, marketing, vendas e crescimento em um s&oacute; lugar.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-open-auth="signup"><i data-lucide="rocket"></i>Come&ccedil;ar gr&aacute;tis</button>
+            <a class="btn btn-secondary" href="#demo"><i data-lucide="play-circle"></i>Ver demonstra&ccedil;&atilde;o</a>
+          </div>
+          <div class="hero-proof">
+            <span><strong>5 usos</strong> no gratuito</span>
+            <span><strong>PDF</strong> no premium</span>
+            <span><strong>R$ 29,90</strong> por mes</span>
+          </div>
+        </div>
+        <div class="mockup reveal" id="demo">
+          <div class="mockup-top"><span></span><span></span><span></span><strong>CEO Command</strong></div>
+          <div class="metric-grid">
+            <article class="metric-card"><span>Faturamento</span><strong>R$ 42k</strong><small class="positive">+12,8%</small></article>
+            <article class="metric-card"><span>Lucro</span><strong>R$ 16,2k</strong><small class="positive">38% margem</small></article>
+            <article class="metric-card"><span>Clientes</span><strong>156</strong><small>Ticket R$ 269</small></article>
+            <article class="metric-card"><span>Score</span><strong>88/100</strong><small class="warning">prioridade: marketing</small></article>
+          </div>
+          <div class="ai-strip">
+            <i data-lucide="sparkles"></i>
+            <div><strong>Resposta da IA</strong><p>Crie uma oferta de recompra, revise custos recorrentes e publique 3 conteudos de autoridade esta semana.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="beneficios">
+        <div class="section-inner">
+          <div class="section-head reveal">
+            <span class="eyebrow">Menos achismo, mais decisao</span>
+            <h2>Um CEO particular para pequenos negocios</h2>
+            <p>Cadastre seus dados, acompanhe indicadores e receba planos praticos para vender mais, economizar e crescer.</p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card reveal"><i data-lucide="wallet-cards"></i><h3>Financas claras</h3><p>Veja receita, despesas, lucro, margem, ticket medio e risco financeiro.</p></article>
+            <article class="feature-card reveal"><i data-lucide="messages-square"></i><h3>Chat com IA</h3><p>Pergunte sobre vendas, precificacao, marketing, caixa, produtividade e crescimento.</p></article>
+            <article class="feature-card reveal"><i data-lucide="target"></i><h3>Metas e alertas</h3><p>Receba alertas quando a meta atrasa, os custos sobem ou a margem cai.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="funcionalidades">
+        <div class="section-inner">
+          <div class="section-head reveal">
+            <span class="eyebrow">Aplicacao real</span>
+            <h2>Tudo que o negocio precisa para decidir melhor</h2>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card reveal"><i data-lucide="scan-line"></i><h3>Diagnostico empresarial</h3><p>Nota geral, resumo executivo, riscos, oportunidades e prioridade da semana.</p></article>
+            <article class="feature-card reveal"><i data-lucide="list-checks"></i><h3>Planos de acao</h3><p>Planos de 7, 30 e 90 dias com tarefas organizadas por dia ou semana.</p></article>
+            <article class="feature-card reveal"><i data-lucide="megaphone"></i><h3>Marketing IA</h3><p>Posts, legendas, anuncios, promocoes e calendario semanal de conteudo.</p></article>
+            <article class="feature-card reveal"><i data-lucide="file-down"></i><h3>Relatorio PDF</h3><p>Documento executivo com financeiro, diagnostico, plano e recomendacoes.</p></article>
+            <article class="feature-card reveal"><i data-lucide="shield-check"></i><h3>Login seguro</h3><p>Firebase Auth com e-mail, senha, Google, recuperacao e dados por usuario.</p></article>
+            <article class="feature-card reveal"><i data-lucide="smartphone"></i><h3>PWA instalavel</h3><p>App responsivo com tema escuro, service worker e instalacao no celular.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="precos">
+        <div class="section-inner">
+          <div class="section-head reveal">
+            <span class="eyebrow">Assinatura</span>
+            <h2>Comece gratis. Escale com premium.</h2>
+          </div>
+          <div class="price-grid">
+            <article class="price-card reveal">
+              <span class="pill">Plano gratuito</span>
+              <h3>R$ 0</h3>
+              <p>Para testar o consultor empresarial e organizar o negocio.</p>
+              <ul class="check-list">
+                <li><i data-lucide="check"></i>5 usos de IA por mes</li>
+                <li><i data-lucide="check"></i>Dashboard e cadastro do negocio</li>
+                <li><i data-lucide="check"></i>Plano de 7 e 30 dias</li>
+              </ul>
+              <button class="btn btn-secondary" data-open-auth="signup">Criar conta gratis</button>
+            </article>
+            <article class="price-card featured reveal">
+              <span class="pill">Plano premium</span>
+              <h3>R$ 29,90<span>/mes</span></h3>
+              <p>Para usar IA sem limite, PDF e crescimento completo.</p>
+              <ul class="check-list">
+                <li><i data-lucide="check"></i>IA ilimitada</li>
+                <li><i data-lucide="check"></i>Relatorios PDF</li>
+                <li><i data-lucide="check"></i>Plano de 90 dias</li>
+                <li><i data-lucide="check"></i>Marketing IA ilimitado</li>
+              </ul>
+              <button class="btn btn-primary" data-open-auth="signup">Ativar premium</button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="section-inner">
+          <div class="section-head reveal"><span class="eyebrow">FAQ</span><h2>Perguntas frequentes</h2></div>
+          <div class="faq-grid">
+            <article class="faq-item reveal"><h3>Preciso configurar API?</h3><p>Para publicar com IA real, configure OPENAIAPIKEY. Sem chave, o app usa fallback seguro.</p></article>
+            <article class="faq-item reveal"><h3>Os dados ficam salvos?</h3><p>Sim. Com Firebase configurado, dados do negocio, historico, uso e premium ficam no Firestore.</p></article>
+            <article class="faq-item reveal"><h3>Como funciona o premium?</h3><p>A assinatura mensal usa Mercado Pago com external_reference do UID e webhook para ativar premium.</p></article>
+            <article class="faq-item reveal"><h3>Posso instalar no celular?</h3><p>Sim. O app tem manifest, tema escuro e service worker para instalacao como PWA.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand"><img src="/assets/logo.svg" alt="" /><span>CEO de Bolso AI</span></div>
+      <nav class="footer-links"><a href="/blog.html">Blog</a><a href="/privacy.html">Privacidade</a><a href="/terms.html">Termos</a></nav>
+    </footer>
+
+    <div class="auth-modal" id="authModal" aria-hidden="true">
+      <div class="auth-card">
+        <div class="row-actions" style="justify-content: space-between">
+          <div><h2 id="authTitle">Entrar</h2><p class="muted" id="authSubtitle">Acesse seu CEO particular.</p></div>
+          <button class="icon-btn" id="closeAuth" aria-label="Fechar"><i data-lucide="x"></i></button>
+        </div>
+        <div class="form-grid">
+          <label>E-mail<input id="authEmail" type="email" placeholder="voce@empresa.com" /></label>
+          <label>Senha<input id="authPassword" type="password" placeholder="minimo 6 caracteres" /></label>
+          <div class="auth-actions">
+            <button class="btn btn-primary" id="authSubmit">Entrar</button>
+            <button class="btn btn-secondary" id="authGoogle"><i data-lucide="chrome"></i>Google</button>
+          </div>
+          <div class="form-switch">
+            <button class="text-btn" id="toggleAuth">Criar conta gratis</button>
+            <button class="text-btn" id="resetPassword">Esqueci a senha</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast-host" id="toastHost"></div>
+  </body>
+</html>
