@@ -9,9 +9,9 @@
   <meta property="og:title" content="CEO de Bolso AI" />
   <meta property="og:description" content="Seu consultor empresarial inteligente para finanças, marketing, vendas e crescimento." />
   <meta property="og:type" content="website" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   <style>
     :root{
@@ -19,51 +19,34 @@
       --bg:#070a13;--bg2:#0b1020;--card:rgba(17,25,46,.74);--card2:rgba(22,31,55,.92);
       --text:#f8fbff;--muted:#9eacc8;--soft:#c8d4ee;--line:rgba(255,255,255,.12);
       --cyan:#22d3ee;--blue:#3b82f6;--violet:#a855f7;--green:#22c55e;--amber:#f59e0b;--rose:#fb7185;
-      --shadow:0 24px 90px rgba(0,0,0,.45);--max:1180px;--r:18px;
-      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+      --shadow:0 24px 90px rgba(0,0,0,.45);--max:1180px;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;min-width:320px;background:radial-gradient(circle at 18% 8%,rgba(34,211,238,.18),transparent 28%),radial-gradient(circle at 82% 12%,rgba(168,85,247,.2),transparent 28%),linear-gradient(180deg,#070a13 0%,#0b1020 46%,#090d19 100%);color:var(--text);overflow-x:hidden}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:radial-gradient(circle at 18% 8%,rgba(34,211,238,.18),transparent 28%),radial-gradient(circle at 82% 12%,rgba(168,85,247,.2),transparent 28%),linear-gradient(180deg,#070a13 0%,#0b1020 46%,#090d19 100%);color:var(--text);overflow-x:hidden}
     body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 76%);z-index:-1}
-    a{color:inherit;text-decoration:none} button,input,select,textarea{font:inherit} button{cursor:pointer} img,canvas{display:block;max-width:100%}
-    .hidden{display:none!important}.muted{color:var(--muted)}.positive{color:#87f5a5!important}.warning{color:#ffd38a!important}.danger{color:#ff9cac!important}
-    .container{width:min(calc(100% - 32px),var(--max));margin:auto}.site-header{position:fixed;top:16px;left:50%;z-index:40;display:flex;align-items:center;justify-content:space-between;width:min(calc(100% - 32px),var(--max));min-height:64px;padding:10px 12px;transform:translateX(-50%);border:1px solid var(--line);border-radius:20px;background:rgba(8,12,24,.74);box-shadow:0 16px 50px rgba(0,0,0,.28);backdrop-filter:blur(18px)}
-    .brand,.footer-brand{display:inline-flex;align-items:center;gap:10px;font-weight:900}.logo{display:grid;place-items:center;width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),var(--blue) 48%,var(--violet));box-shadow:0 14px 42px rgba(59,130,246,.34)}.logo svg{width:22px;height:22px}
+    a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button{cursor:pointer}img,canvas{display:block;max-width:100%}.hidden{display:none!important}.muted{color:var(--muted)}.positive{color:#87f5a5!important}.warning{color:#ffd38a!important}.danger{color:#ff9cac!important}
+    .site-header{position:fixed;top:16px;left:50%;z-index:40;display:flex;align-items:center;justify-content:space-between;width:min(calc(100% - 32px),var(--max));min-height:64px;padding:10px 12px;transform:translateX(-50%);border:1px solid var(--line);border-radius:20px;background:rgba(8,12,24,.74);box-shadow:0 16px 50px rgba(0,0,0,.28);backdrop-filter:blur(18px);transition:.24s}
+    .site-header.scrolled{background:rgba(8,12,24,.92);border-color:rgba(34,211,238,.24)}.brand,.footer-brand{display:inline-flex;align-items:center;gap:10px;font-weight:900}.logo{display:grid;place-items:center;width:38px;height:38px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),var(--blue) 48%,var(--violet));box-shadow:0 14px 42px rgba(59,130,246,.34)}.logo svg{width:22px;height:22px}
     .main-nav{display:flex;gap:6px}.main-nav a{min-height:40px;padding:11px 12px;border-radius:12px;color:var(--soft);font-size:.9rem;transition:.18s}.main-nav a:hover{background:rgba(255,255,255,.08);color:var(--text);transform:translateY(-1px)}
     .header-actions,.hero-actions,.row,.auth-actions{display:flex;align-items:center;gap:10px}.btn,.icon-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;border:0;border-radius:14px;color:var(--text);font-weight:800;transition:.18s}.btn{padding:0 18px;white-space:nowrap}.btn.small{min-height:40px;padding:0 13px;font-size:.92rem}.btn.full{width:100%}.btn svg,.icon-btn svg{width:18px;height:18px}.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--blue) 48%,var(--violet));box-shadow:0 14px 42px rgba(59,130,246,.34)}.btn-secondary{border:1px solid var(--line);background:rgba(255,255,255,.08);backdrop-filter:blur(12px)}.btn-ghost{border:1px solid transparent;background:rgba(255,255,255,.05)}.icon-btn{width:42px;min-height:42px;border:1px solid var(--line);background:rgba(255,255,255,.07)}.btn:hover,.icon-btn:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(34,211,238,.22)}.btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
-    .hero{position:relative;min-height:92vh;padding:154px max(24px,calc((100vw - var(--max))/2)) 86px;overflow:hidden}.hero:after{content:"";position:absolute;right:8%;top:18%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.16),transparent 68%);filter:blur(4px)}.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:44px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:0 12px;border:1px solid rgba(34,211,238,.24);border-radius:999px;background:rgba(34,211,238,.08);color:#b8f3ff;font-size:.82rem;font-weight:800}.hero h1{margin:18px 0 0;font-size:clamp(2.7rem,6vw,5.7rem);line-height:.96;letter-spacing:-.055em}.gradient-text{background:linear-gradient(135deg,#fff,#b8f3ff 44%,#d7b6ff);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:650px;margin:24px 0 0;color:var(--soft);font-size:1.18rem;line-height:1.65}.hero-actions{margin-top:34px;flex-wrap:wrap}.trust-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;color:var(--muted);font-size:.92rem}.trust-row span{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06)}.trust-row strong{color:var(--text)}
-    .mockup{position:relative;z-index:2;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.055)),rgba(9,14,29,.74);box-shadow:var(--shadow);backdrop-filter:blur(24px);animation:floatPanel 7s ease-in-out infinite}@keyframes floatPanel{50%{translate:0 -14px}}.mockup-top{display:flex;gap:7px;height:38px;align-items:center;color:var(--muted)}.mockup-top span{width:10px;height:10px;border-radius:50%;background:var(--rose)}.mockup-top span:nth-child(2){background:var(--amber)}.mockup-top span:nth-child(3){background:var(--green)}.mockup-top strong{margin-left:auto;color:var(--soft);font-size:.85rem}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric-card,.feature-card,.price-card,.faq-item,.panel,.result-item,.alert-item,.timeline-item,.legal-card{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.075);box-shadow:0 18px 60px rgba(0,0,0,.22);backdrop-filter:blur(18px)}.metric-card{padding:16px}.metric-card span{display:block;color:var(--muted);font-size:.82rem}.metric-card strong{display:block;margin-top:10px;font-size:1.6rem}.ai-strip{display:flex;gap:12px;margin-top:12px;padding:14px;border:1px solid rgba(34,211,238,.18);border-radius:18px;background:rgba(34,211,238,.08)}.ai-strip svg{color:var(--cyan);flex:0 0 auto}.ai-strip p{margin:4px 0 0;color:var(--soft);font-size:.92rem;line-height:1.45}
-    .section{padding:92px 24px}.section-inner{width:min(100%,var(--max));margin:auto}.section-head{max-width:760px;margin-bottom:32px}.section-head h2{margin:18px 0 0;font-size:clamp(2rem,4vw,4rem);line-height:1.04;letter-spacing:-.04em}.section-head p{color:var(--muted);line-height:1.65}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.feature-card,.price-card,.faq-item{padding:22px;transition:.18s}.feature-card:hover,.price-card:hover{transform:translateY(-5px);border-color:rgba(34,211,238,.35);background:rgba(255,255,255,.095)}.feature-card svg{width:26px;height:26px;color:var(--cyan)}.feature-card h3,.price-card h3{margin:18px 0 0}.feature-card p,.price-card p,.faq-item p{margin:10px 0 0;color:var(--muted);line-height:1.65}.demo-console{display:grid;grid-template-columns:1fr auto;gap:10px;padding:18px}.demo-console input{min-height:54px}.demo-answer{grid-column:1/-1;margin:0;color:var(--soft);line-height:1.7;white-space:pre-line}.price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:900px}.price-card.featured{border-color:rgba(34,211,238,.36);background:linear-gradient(180deg,rgba(34,211,238,.1),rgba(168,85,247,.08)),rgba(255,255,255,.075)}.price-card h3{font-size:2.2rem}.price-card h3 span{font-size:1rem;color:var(--muted)}.check-list{display:grid;gap:10px;margin:18px 0;padding:0;list-style:none;color:var(--soft)}.check-list li{display:flex;gap:9px}.check-list li:before{content:"✓";color:#87f5a5;font-weight:900}.faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .hero{position:relative;min-height:92vh;padding:154px max(24px,calc((100vw - var(--max))/2)) 86px;overflow:hidden}.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 80%,rgba(59,130,246,.12),transparent 42%);pointer-events:none}.hero:after{content:"";position:absolute;right:8%;top:18%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.16),transparent 68%);filter:blur(4px)}
+    .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:44px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:0 12px;border:1px solid rgba(34,211,238,.24);border-radius:999px;background:rgba(34,211,238,.08);color:#b8f3ff;font-size:.82rem;font-weight:800}.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 6px rgba(34,197,94,.12)}
+    .hero h1{margin:18px 0 0;font-size:clamp(2.7rem,6vw,5.7rem);line-height:.96;letter-spacing:-.055em}.gradient-text{background:linear-gradient(135deg,#fff,#b8f3ff 44%,#d7b6ff);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:650px;margin:24px 0 0;color:var(--soft);font-size:1.18rem;line-height:1.65}.mini-brandline{margin-top:16px;color:var(--muted);font-size:.92rem}.mini-brandline strong{color:var(--text)}.hero-actions{margin-top:34px;flex-wrap:wrap}.trust-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;color:var(--muted);font-size:.92rem}.trust-row span{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06)}.trust-row strong{color:var(--text)}
+    .mockup{position:relative;z-index:2;padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.055)),rgba(9,14,29,.74);box-shadow:var(--shadow);backdrop-filter:blur(24px);animation:floatPanel 7s ease-in-out infinite;overflow:hidden}@keyframes floatPanel{50%{translate:0 -14px}}.mockup-top{display:flex;gap:7px;height:38px;align-items:center;color:var(--muted)}.mockup-top span{width:10px;height:10px;border-radius:50%;background:var(--rose)}.mockup-top span:nth-child(2){background:var(--amber)}.mockup-top span:nth-child(3){background:var(--green)}.mockup-top strong{margin-left:auto;color:var(--soft);font-size:.85rem}.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric-card,.feature-card,.price-card,.faq-item,.panel,.result-item,.alert-item,.timeline-item,.legal-card{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.075);box-shadow:0 18px 60px rgba(0,0,0,.22);backdrop-filter:blur(18px)}.metric-card{padding:16px}.metric-card span{display:block;color:var(--muted);font-size:.82rem}.metric-card strong{display:block;margin-top:10px;font-size:1.6rem}.ai-strip{display:flex;gap:12px;margin-top:12px;padding:14px;border:1px solid rgba(34,211,238,.18);border-radius:18px;background:rgba(34,211,238,.08)}.ai-strip svg{color:var(--cyan);flex:0 0 auto}.ai-strip p{margin:4px 0 0;color:var(--soft);font-size:.92rem;line-height:1.45}
+    .section{padding:92px 24px}.section-inner{width:min(100%,var(--max));margin:auto}.section-head{max-width:760px;margin-bottom:32px}.section-head h2{margin:18px 0 0;font-size:clamp(2rem,4vw,4rem);line-height:1.04;letter-spacing:-.04em}.section-head p{color:var(--muted);line-height:1.65}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.feature-card,.price-card,.faq-item{padding:22px;transition:.18s;position:relative;overflow:hidden}.feature-card:hover,.price-card:hover{transform:translateY(-5px);border-color:rgba(34,211,238,.35);background:rgba(255,255,255,.095)}.feature-card svg{width:26px;height:26px;color:var(--cyan)}.feature-card h3,.price-card h3{margin:18px 0 0}.feature-card p,.price-card p,.faq-item p{margin:10px 0 0;color:var(--muted);line-height:1.65}.demo-console{display:grid;grid-template-columns:1fr auto;gap:10px;padding:18px}.demo-console input{min-height:54px}.demo-answer{grid-column:1/-1;margin:0;color:var(--soft);line-height:1.7;white-space:pre-line}.kbd-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;grid-column:1/-1}.kbd-row button{min-height:34px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);color:var(--soft);padding:0 10px}
+    .price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:900px}.price-card.featured{border-color:rgba(34,211,238,.36);background:linear-gradient(180deg,rgba(34,211,238,.1),rgba(168,85,247,.08)),rgba(255,255,255,.075)}.price-card h3{font-size:2.2rem}.price-card h3 span{font-size:1rem;color:var(--muted)}.check-list{display:grid;gap:10px;margin:18px 0;padding:0;list-style:none;color:var(--soft)}.check-list li{display:flex;gap:9px}.check-list li:before{content:"✓";color:#87f5a5;font-weight:900}.faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
     .site-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(calc(100% - 32px),var(--max));margin:0 auto;padding:32px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.footer-links{display:flex;gap:18px}.footer-links button{border:0;background:transparent;color:inherit}
-    .modal{position:fixed;inset:0;z-index:80;display:none;place-items:center;padding:20px;background:rgba(3,6,14,.72);backdrop-filter:blur(14px)}.modal.open{display:grid}.auth-card{width:min(440px,100%);padding:22px;border:1px solid var(--line);border-radius:24px;background:rgba(12,18,34,.96);box-shadow:var(--shadow)}.auth-card h2{margin:0}.form-grid{display:grid;gap:12px;margin-top:18px}label{display:grid;gap:8px;color:var(--soft);font-size:.92rem;font-weight:750}input,select,textarea{width:100%;min-height:48px;border:1px solid var(--line);border-radius:14px;outline:none;background:rgba(4,8,18,.72);color:var(--text);padding:0 14px}textarea{padding:12px 14px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.55);box-shadow:0 0 0 4px rgba(34,211,238,.12);background:rgba(6,11,22,.92)}.text-btn{border:0;background:transparent;color:#b8f3ff;font-weight:800}.toast-host{position:fixed;right:18px;bottom:18px;z-index:100;display:grid;gap:10px}.toast{max-width:360px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(12,18,34,.96);box-shadow:var(--shadow);color:var(--soft)}
-    #app{padding:110px 24px 40px}.app-shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;width:min(100%,1280px);margin:auto}.sidebar{position:sticky;top:100px;align-self:start;padding:14px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.06);backdrop-filter:blur(18px)}.user-box{padding:14px;border-radius:18px;background:rgba(255,255,255,.06);margin-bottom:12px}.user-box strong{display:block}.nav-btn{display:flex;align-items:center;gap:10px;width:100%;min-height:46px;border:1px solid transparent;border-radius:14px;background:transparent;color:var(--soft);padding:0 12px;text-align:left}.nav-btn:hover,.nav-btn.active{border-color:rgba(34,211,238,.22);background:rgba(34,211,238,.1);color:var(--text)}.app-main{min-width:0}.app-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}.app-top h1{margin:0;font-size:clamp(1.8rem,4vw,3rem)}.panel{padding:20px}.view{display:none}.view.active{display:block}.dash-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}.dash-card{padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.06)}.dash-card span{color:var(--muted);font-size:.82rem}.dash-card strong{display:block;margin-top:8px;font-size:1.45rem}.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}.input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.result-grid{display:grid;gap:12px;margin-top:14px}.result-item,.timeline-item,.alert-item{padding:16px}.timeline-item{display:grid;grid-template-columns:110px 1fr;gap:14px}.chat-list{display:grid;align-content:start;gap:10px;height:390px;overflow:auto;padding:14px;border:1px solid var(--line);border-radius:18px;background:rgba(4,8,18,.45)}.chat-message{width:fit-content;max-width:min(640px,88%);padding:12px 14px;border-radius:16px;line-height:1.55;white-space:pre-line}.chat-message.ai{background:rgba(34,211,238,.1);color:var(--soft)}.chat-message.user{justify-self:end;background:linear-gradient(135deg,rgba(59,130,246,.95),rgba(168,85,247,.95));color:white}.chat-input{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px}.pill{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;border-radius:999px;background:rgba(34,211,238,.11);color:#b8f3ff;font-weight:800;font-size:.82rem}.premium-pill.free{background:rgba(245,158,11,.13);color:#ffe1a8}.legal-page{padding:130px 24px 60px}.legal-card{width:min(900px,100%);margin:auto;padding:24px}.legal-card h1{margin-top:14px}
-    .reveal{opacity:0;transform:translateY(18px);transition:.55s ease}.reveal.visible{opacity:1;transform:none}
-    @media(max-width:960px){.main-nav{display:none}.hero-grid,.feature-grid,.price-grid,.faq-grid,.two-col,.app-shell{grid-template-columns:1fr}.mockup{animation:none}.app-shell{width:min(100%,720px)}.sidebar{position:static}.dash-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-top:132px}.site-header{top:10px;width:calc(100% - 20px)}}@media(max-width:620px){.header-actions .btn-secondary,.main-nav{display:none}.hero{padding-left:16px;padding-right:16px}.hero h1{font-size:3rem}.metric-grid,.dash-grid,.input-grid{grid-template-columns:1fr}.section{padding:70px 16px}.demo-console,.chat-input{grid-template-columns:1fr}.site-footer{flex-direction:column;align-items:flex-start}.app-top{display:grid}.timeline-item{grid-template-columns:1fr}.auth-actions{flex-direction:column}.auth-actions .btn{width:100%}}
-    @media print{.site-header,.sidebar,.app-top .row,.btn,.toast-host{display:none!important}body{background:#fff;color:#111}.app-shell{display:block}.panel,.result-item,.dash-card{border:1px solid #ddd;background:#fff;color:#111;box-shadow:none}.muted{color:#333}.view{display:block!important}.view:not(#view-reports){display:none!important}}
-
-    .site-header{transition:transform .24s ease, background .24s ease, border-color .24s ease}.site-header.scrolled{background:rgba(8,12,24,.9);border-color:rgba(34,211,238,.22)}
-    .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 80%,rgba(59,130,246,.12),transparent 42%);pointer-events:none}
-    .feature-card,.price-card,.faq-item,.panel,.mockup{position:relative;overflow:hidden}
-    .feature-card:before,.price-card:before,.panel:before,.mockup:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.055),transparent);transform:translateX(-120%);transition:transform .75s ease;pointer-events:none}
-    .feature-card:hover:before,.price-card:hover:before,.panel:hover:before,.mockup:hover:before{transform:translateX(120%)}
-    .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 6px rgba(34,197,94,.12)}
-    .kbd-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;grid-column:1/-1}.kbd-row button{min-height:34px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);color:var(--soft);padding:0 10px}
-    .auth-card{animation:modalIn .24s ease}@keyframes modalIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
-    .mini-brandline{margin-top:16px;color:var(--muted);font-size:.92rem}.mini-brandline strong{color:var(--text)}
-
+    .modal{position:fixed;inset:0;z-index:80;display:none;place-items:center;padding:20px;background:rgba(3,6,14,.72);backdrop-filter:blur(14px)}.modal.open{display:grid}.auth-card{width:min(460px,100%);max-height:92vh;overflow:auto;padding:22px;border:1px solid var(--line);border-radius:24px;background:rgba(12,18,34,.96);box-shadow:var(--shadow);animation:modalIn .24s ease}@keyframes modalIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}.auth-card h2{margin:0}.form-grid{display:grid;gap:12px;margin-top:18px}label{display:grid;gap:8px;color:var(--soft);font-size:.92rem;font-weight:750}input,select,textarea{width:100%;min-height:48px;border:1px solid var(--line);border-radius:14px;outline:none;background:rgba(4,8,18,.72);color:var(--text);padding:0 14px}textarea{padding:12px 14px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:rgba(34,211,238,.55);box-shadow:0 0 0 4px rgba(34,211,238,.12);background:rgba(6,11,22,.92)}.text-btn{border:0;background:transparent;color:#b8f3ff;font-weight:800}
+    .auth-message{min-height:42px;display:flex;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid var(--line);font-weight:800;font-size:.88rem;line-height:1.35}.auth-message.success{background:rgba(34,197,94,.12);color:#b9f6c8;border-color:rgba(34,197,94,.28)}.auth-message.error{background:rgba(251,113,133,.12);color:#ffd1d8;border-color:rgba(251,113,133,.28)}.auth-message.info{background:rgba(34,211,238,.1);color:#b8f3ff;border-color:rgba(34,211,238,.24)}.auth-help{color:var(--muted);font-size:.78rem;line-height:1.35}.password-wrap{position:relative}.password-wrap input{padding-right:48px}.password-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:38px;height:38px;border:0;border-radius:10px;background:rgba(255,255,255,.06);color:var(--soft)}.password-toggle svg{width:18px;height:18px}.auth-check{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:10px;color:var(--muted);font-size:.86rem;font-weight:700;line-height:1.45}.auth-check input{width:18px;min-height:18px;margin-top:1px}.auth-divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.82rem;font-weight:800;text-transform:uppercase}.auth-divider:before,.auth-divider:after{content:"";height:1px;background:var(--line);flex:1}.auth-bottom{justify-content:space-between;flex-wrap:wrap}
+    .toast-host{position:fixed;right:18px;bottom:18px;z-index:100;display:grid;gap:10px}.toast{max-width:360px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(12,18,34,.96);box-shadow:var(--shadow);color:var(--soft)}
+    #app{padding:110px 24px 40px}.app-shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;width:min(100%,1280px);margin:auto}.sidebar{position:sticky;top:100px;align-self:start;padding:14px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.06);backdrop-filter:blur(18px)}.user-box{padding:14px;border-radius:18px;background:rgba(255,255,255,.06);margin-bottom:12px}.user-box strong{display:block}.nav-btn{display:flex;align-items:center;gap:10px;width:100%;min-height:46px;border:1px solid transparent;border-radius:14px;background:transparent;color:var(--soft);padding:0 12px;text-align:left}.nav-btn:hover,.nav-btn.active{border-color:rgba(34,211,238,.22);background:rgba(34,211,238,.1);color:var(--text)}.app-main{min-width:0}.app-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}.app-top h1{margin:0;font-size:clamp(1.8rem,4vw,3rem)}.panel{padding:20px}.view{display:none}.view.active{display:block}.dash-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}.dash-card{padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.06)}.dash-card span{color:var(--muted);font-size:.82rem}.dash-card strong{display:block;margin-top:8px;font-size:1.45rem}.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}.input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.result-grid{display:grid;gap:12px;margin-top:14px}.result-item,.timeline-item,.alert-item{padding:16px}.timeline-item{display:grid;grid-template-columns:110px 1fr;gap:14px}.chat-list{display:grid;align-content:start;gap:10px;height:390px;overflow:auto;padding:14px;border:1px solid var(--line);border-radius:18px;background:rgba(4,8,18,.45)}.chat-message{width:fit-content;max-width:min(640px,88%);padding:12px 14px;border-radius:16px;line-height:1.55;white-space:pre-line}.chat-message.ai{background:rgba(34,211,238,.1);color:var(--soft)}.chat-message.user{justify-self:end;background:linear-gradient(135deg,rgba(59,130,246,.95),rgba(168,85,247,.95));color:white}.chat-input{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px}.pill{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;border-radius:999px;background:rgba(34,211,238,.11);color:#b8f3ff;font-weight:800;font-size:.82rem}.premium-pill.free{background:rgba(245,158,11,.13);color:#ffe1a8}.legal-page{padding:130px 24px 60px}.legal-card{width:min(900px,100%);margin:auto;padding:24px}.legal-card h1{margin-top:14px}.reveal{opacity:0;transform:translateY(18px);transition:.55s ease}.reveal.visible{opacity:1;transform:none}
+    @media(max-width:960px){.main-nav{display:none}.hero-grid,.feature-grid,.price-grid,.faq-grid,.two-col,.app-shell{grid-template-columns:1fr}.mockup{animation:none}.app-shell{width:min(100%,720px)}.sidebar{position:static}.dash-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-top:132px}.site-header{top:10px;width:calc(100% - 20px)}}@media(max-width:620px){.header-actions .btn-secondary,.main-nav{display:none}.hero{padding-left:16px;padding-right:16px}.hero h1{font-size:3rem}.metric-grid,.dash-grid,.input-grid{grid-template-columns:1fr}.section{padding:70px 16px}.demo-console,.chat-input{grid-template-columns:1fr}.site-footer{flex-direction:column;align-items:flex-start}.app-top{display:grid}.timeline-item{grid-template-columns:1fr}.auth-actions{flex-direction:column}.auth-actions .btn{width:100%}.auth-bottom{display:grid;gap:10px}}@media print{.site-header,.sidebar,.app-top .row,.btn,.toast-host{display:none!important}body{background:#fff;color:#111}.app-shell{display:block}.panel,.result-item,.dash-card{border:1px solid #ddd;background:#fff;color:#111;box-shadow:none}.muted{color:#333}.view{display:block!important}.view:not(#view-reports){display:none!important}}
   </style>
 </head>
-<body data-page="single">
+<body>
   <header class="site-header">
-    <a class="brand" href="#home" aria-label="CEO de Bolso AI">
-      <span class="logo"><i data-lucide="briefcase-business"></i></span><span>CEO de Bolso AI</span>
-    </a>
-    <nav class="main-nav" aria-label="Navegação principal">
-      <a href="#beneficios">Benefícios</a><a href="#funcionalidades">Funcionalidades</a><a href="#precos">Planos</a><a href="#faq">FAQ</a>
-    </nav>
-    <div class="header-actions">
-      <button class="btn btn-secondary small" data-open-auth="login">Entrar</button>
-      <button class="btn btn-primary small" data-open-auth="signup">Começar grátis</button>
-    </div>
+    <a class="brand" href="#home" aria-label="CEO de Bolso AI"><span class="logo"><i data-lucide="briefcase-business"></i></span><span>CEO de Bolso AI</span></a>
+    <nav class="main-nav" aria-label="Navegação principal"><a href="#beneficios">Benefícios</a><a href="#funcionalidades">Funcionalidades</a><a href="#precos">Planos</a><a href="#faq">FAQ</a></nav>
+    <div class="header-actions"><button class="btn btn-secondary small" data-open-auth="login">Entrar</button><button class="btn btn-primary small" data-open-auth="signup">Começar grátis</button></div>
   </header>
 
   <main id="landing">
@@ -72,227 +55,220 @@
         <div class="reveal">
           <span class="eyebrow"><span class="status-dot"></span> Consultoria empresarial inteligente</span>
           <h1>Seu <span class="gradient-text">CEO de bolso</span> para crescer com clareza</h1>
-          <p>Transforme dados simples do seu negócio em decisões claras: o que vender, onde economizar, o que postar e qual ação fazer primeiro.</p><div class="mini-brandline"><strong>Feito para quem empreende sozinho</strong> e precisa decidir com segurança todos os dias.</div>
-          <div class="hero-actions">
-            <button class="btn btn-primary" data-open-auth="signup"><i data-lucide="rocket"></i>Começar grátis</button>
-            <button class="btn btn-secondary" id="openDemo"><i data-lucide="play-circle"></i>Testar demonstração</button>
-          </div>
-          <div class="trust-row">
-            <span><strong>5 usos</strong> grátis/mês</span><span><strong>PDF</strong> profissional</span><span><strong>R$ 29,90</strong>/mês</span>
-          </div>
+          <p>Transforme dados simples do seu negócio em decisões claras: o que vender, onde economizar, o que postar e qual ação fazer primeiro.</p>
+          <div class="mini-brandline"><strong>Feito para quem empreende sozinho</strong> e precisa decidir com segurança todos os dias.</div>
+          <div class="hero-actions"><button class="btn btn-primary" data-open-auth="signup"><i data-lucide="rocket"></i>Criar conta grátis</button><button class="btn btn-secondary" id="openDemo"><i data-lucide="play-circle"></i>Ver demonstração</button></div>
+          <div class="trust-row"><span><strong>5 usos</strong> grátis/mês</span><span><strong>Relatórios</strong> profissionais</span><span><strong>Painel</strong> sincronizado</span></div>
         </div>
         <div class="mockup reveal">
           <div class="mockup-top"><span></span><span></span><span></span><strong>CEO Command</strong></div>
           <div class="metric-grid">
-            <article class="metric-card"><span>Faturamento</span><strong id="heroRevenue">R$ 42k</strong><small class="positive">+12,8%</small></article>
-            <article class="metric-card"><span>Lucro</span><strong id="heroProfit">R$ 16k</strong><small class="positive">38% margem</small></article>
-            <article class="metric-card"><span>Clientes</span><strong id="heroCustomers">156</strong><small>Ticket R$ 269</small></article>
-            <article class="metric-card"><span>Score</span><strong id="heroScore">88/100</strong><small class="warning">prioridade: marketing</small></article>
+            <article class="metric-card"><span>Faturamento</span><strong>R$ 42k</strong><small class="positive">+12,8%</small></article>
+            <article class="metric-card"><span>Lucro</span><strong>R$ 16k</strong><small class="positive">38% margem</small></article>
+            <article class="metric-card"><span>Clientes</span><strong>156</strong><small>Ticket R$ 269</small></article>
+            <article class="metric-card"><span>Score</span><strong>88/100</strong><small class="warning">prioridade: marketing</small></article>
           </div>
-          <div class="ai-strip">
-            <i data-lucide="sparkles"></i>
-            <div><strong>Resposta da IA</strong><p>Crie uma oferta de recompra, revise custos recorrentes e publique 3 conteúdos de autoridade esta semana.</p></div>
-          </div>
+          <div class="ai-strip"><i data-lucide="sparkles"></i><div><strong>Resposta da IA</strong><p>Crie uma oferta de recompra, revise custos recorrentes e publique 3 conteúdos de autoridade esta semana.</p></div></div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="beneficios">
-      <div class="section-inner">
-        <div class="section-head reveal"><span class="eyebrow">Menos achismo, mais decisão</span><h2>Um consultor prático para negócios pequenos</h2><p>Cadastre os dados do negócio e receba diagnóstico, plano de ação, ideias de marketing e alertas claros.</p></div>
-        <div class="feature-grid">
-          <article class="feature-card reveal"><i data-lucide="wallet-cards"></i><h3>Finanças claras</h3><p>Receita, despesas, lucro, margem, ticket médio, meta mensal e risco financeiro.</p></article>
-          <article class="feature-card reveal"><i data-lucide="messages-square"></i><h3>Chat com IA</h3><p>Pergunte sobre vendas, precificação, marketing, caixa, produtividade e crescimento.</p></article>
-          <article class="feature-card reveal"><i data-lucide="target"></i><h3>Metas e alertas</h3><p>Receba alertas quando a meta atrasa, os custos sobem ou a margem cai.</p></article>
-        </div>
-      </div>
-    </section>
+    <section class="section" id="beneficios"><div class="section-inner"><div class="section-head reveal"><span class="eyebrow">Menos achismo, mais decisão</span><h2>Um consultor prático para negócios pequenos</h2><p>Cadastre os dados do negócio e receba diagnóstico, plano de ação, ideias de marketing e alertas claros.</p></div><div class="feature-grid"><article class="feature-card reveal"><i data-lucide="wallet-cards"></i><h3>Finanças claras</h3><p>Receita, despesas, lucro, margem, ticket médio, meta mensal e risco financeiro.</p></article><article class="feature-card reveal"><i data-lucide="messages-square"></i><h3>Chat com IA</h3><p>Pergunte sobre vendas, precificação, marketing, caixa, produtividade e crescimento.</p></article><article class="feature-card reveal"><i data-lucide="target"></i><h3>Metas e alertas</h3><p>Receba alertas quando a meta atrasa, os custos sobem ou a margem cai.</p></article></div></div></section>
 
-    <section class="section" id="funcionalidades">
-      <div class="section-inner">
-        <div class="section-head reveal"><span class="eyebrow">Aplicação real</span><h2>Tudo que o negócio precisa para decidir melhor</h2></div>
-        <div class="feature-grid">
-          <article class="feature-card reveal"><i data-lucide="scan-line"></i><h3>Diagnóstico empresarial</h3><p>Nota geral, resumo executivo, riscos, oportunidades e prioridade da semana.</p></article>
-          <article class="feature-card reveal"><i data-lucide="list-checks"></i><h3>Planos de ação</h3><p>Planos de 7, 30 e 90 dias com tarefas organizadas por dia ou semana.</p></article>
-          <article class="feature-card reveal"><i data-lucide="megaphone"></i><h3>Marketing IA</h3><p>Posts, legendas, anúncios, promoções e calendário semanal de conteúdo.</p></article>
-          <article class="feature-card reveal"><i data-lucide="file-down"></i><h3>Relatório</h3><p>Relatório executivo imprimível em PDF pelo próprio navegador.</p></article>
-          <article class="feature-card reveal"><i data-lucide="shield-check"></i><h3>Conta protegida</h3><p>Acesse seu painel, organize seus dados e mantenha tudo vinculado à sua conta.</p></article>
-          <article class="feature-card reveal"><i data-lucide="smartphone"></i><h3>Experiência completa</h3><p>Landing page, painel, consultor, planejamento, marketing e relatórios em uma experiência integrada.</p></article>
-        </div>
-      </div>
-    </section>
+    <section class="section" id="funcionalidades"><div class="section-inner"><div class="section-head reveal"><span class="eyebrow">Aplicação real</span><h2>Tudo que o negócio precisa para decidir melhor</h2></div><div class="feature-grid"><article class="feature-card reveal"><i data-lucide="scan-line"></i><h3>Diagnóstico empresarial</h3><p>Nota geral, resumo executivo, riscos, oportunidades e prioridade da semana.</p></article><article class="feature-card reveal"><i data-lucide="list-checks"></i><h3>Planos de ação</h3><p>Planos de 7, 30 e 90 dias com tarefas organizadas por dia ou semana.</p></article><article class="feature-card reveal"><i data-lucide="megaphone"></i><h3>Marketing IA</h3><p>Posts, legendas, anúncios, promoções e calendário semanal de conteúdo.</p></article></div></div></section>
 
-    <section class="section" id="demo">
-      <div class="section-inner">
-        <div class="section-head reveal"><span class="eyebrow">Teste rápido</span><h2>Faça uma pergunta para o CEO de Bolso</h2></div>
-        <div class="panel demo-console reveal">
-          <input id="demoQuestion" placeholder="Ex: Como aumentar meu faturamento este mês?" />
-          <button class="btn btn-primary" id="askDemo"><i data-lucide="send"></i>Perguntar</button>
-          <div class="kbd-row"><button data-demo-q="Como aumentar meu faturamento este mês?">Aumentar faturamento</button><button data-demo-q="Onde estou perdendo dinheiro?">Cortar custos</button><button data-demo-q="O que postar essa semana?">Ideias de conteúdo</button></div><p class="demo-answer" id="demoAnswer">Exemplo: “Como aumentar meu faturamento?”</p>
-        </div>
-      </div>
-    </section>
+    <section class="section" id="demo"><div class="section-inner"><div class="section-head reveal"><span class="eyebrow">Teste rápido</span><h2>Faça uma pergunta para o CEO de Bolso</h2></div><div class="panel demo-console reveal"><input id="demoQuestion" placeholder="Ex: Como aumentar meu faturamento este mês?" /><button class="btn btn-primary" id="askDemo"><i data-lucide="send"></i>Perguntar</button><div class="kbd-row"><button data-demo-q="Como aumentar meu faturamento este mês?">Aumentar faturamento</button><button data-demo-q="Onde estou perdendo dinheiro?">Cortar custos</button><button data-demo-q="O que postar essa semana?">Ideias de conteúdo</button></div><p class="demo-answer" id="demoAnswer">Exemplo: “Como aumentar meu faturamento?”</p></div></div></section>
 
-    <section class="section" id="precos">
-      <div class="section-inner">
-        <div class="section-head reveal"><span class="eyebrow">Assinatura</span><h2>Comece grátis. Escale com premium.</h2></div>
-        <div class="price-grid">
-          <article class="price-card reveal"><span class="pill">Gratuito</span><h3>R$ 0</h3><p>Para testar e organizar o negócio.</p><ul class="check-list"><li>5 usos de IA por mês</li><li>Dashboard e cadastro do negócio</li><li>Plano de 7 e 30 dias</li></ul><button class="btn btn-secondary" data-open-auth="signup">Criar conta grátis</button></article>
-          <article class="price-card featured reveal"><span class="pill">Premium</span><h3>R$ 29,90<span>/mês</span></h3><p>Para IA sem limite, PDF e crescimento completo.</p><ul class="check-list"><li>IA ilimitada</li><li>Relatórios PDF</li><li>Plano de 90 dias</li><li>Marketing IA ilimitado</li></ul><button class="btn btn-primary" id="premiumLanding">Ativar premium</button></article>
-        </div>
-      </div>
-    </section>
+    <section class="section" id="precos"><div class="section-inner"><div class="section-head reveal"><span class="eyebrow">Assinatura</span><h2>Comece grátis. Escale com premium.</h2></div><div class="price-grid"><article class="price-card reveal"><span class="pill">Gratuito</span><h3>R$ 0</h3><p>Para testar e organizar o negócio.</p><ul class="check-list"><li>5 usos de IA por mês</li><li>Dashboard e cadastro do negócio</li><li>Plano de 7 e 30 dias</li></ul><button class="btn btn-secondary" data-open-auth="signup">Criar conta grátis</button></article><article class="price-card featured reveal"><span class="pill">Premium</span><h3>R$ 29,90<span>/mês</span></h3><p>Para IA sem limite, relatórios e crescimento completo.</p><ul class="check-list"><li>IA ilimitada</li><li>Relatórios profissionais</li><li>Plano de 90 dias</li><li>Marketing IA ilimitado</li></ul><button class="btn btn-primary" id="premiumLanding">Ativar premium</button></article></div></div></section>
 
-    <section class="section" id="faq">
-      <div class="section-inner">
-        <div class="section-head reveal"><span class="eyebrow">FAQ</span><h2>Perguntas frequentes</h2></div>
-        <div class="faq-grid">
-          <article class="faq-item reveal"><h3>Preciso instalar algo?</h3><p>Não. Você acessa pelo navegador, cria sua conta e começa a organizar o negócio em poucos minutos.</p></article>
-          <article class="faq-item reveal"><h3>Meus dados ficam seguros?</h3><p>Sim. Cada conta mantém seus próprios dados, histórico, planos e relatórios.</p></article>
-          <article class="faq-item reveal"><h3>Como funciona o Premium?</h3><p>O Premium libera uso avançado, relatórios completos e planejamento estratégico sem limites.</p></article>
-          <article class="faq-item reveal"><h3>Consigo gerar relatório?</h3><p>Sim. Você pode gerar um relatório executivo profissional para revisar, compartilhar ou salvar.</p></article>
-        </div>
-      </div>
-    </section>
+    <section class="section" id="faq"><div class="section-inner"><div class="section-head reveal"><span class="eyebrow">FAQ</span><h2>Perguntas frequentes</h2></div><div class="faq-grid"><article class="faq-item reveal"><h3>Preciso instalar algo?</h3><p>Não. Você acessa pelo navegador, cria sua conta e começa a organizar o negócio em poucos minutos.</p></article><article class="faq-item reveal"><h3>Meus dados ficam seguros?</h3><p>Sim. Cada conta mantém seus próprios dados, histórico, planos e relatórios.</p></article><article class="faq-item reveal"><h3>Como funciona o Premium?</h3><p>O Premium libera uso avançado, relatórios completos e planejamento estratégico sem limites.</p></article><article class="faq-item reveal"><h3>Consigo gerar relatório?</h3><p>Sim. Você pode gerar um relatório executivo profissional para revisar, compartilhar ou salvar.</p></article></div></div></section>
 
-    <footer class="site-footer">
-      <div class="footer-brand"><span class="logo"><i data-lucide="briefcase-business"></i></span><span>CEO de Bolso AI</span></div>
-      <nav class="footer-links"><button data-legal="privacy">Privacidade</button><button data-legal="terms">Termos</button></nav>
-    </footer>
+    <footer class="site-footer"><div class="footer-brand"><span class="logo"><i data-lucide="briefcase-business"></i></span><span>CEO de Bolso AI</span></div><nav class="footer-links"><button data-legal="privacy">Privacidade</button><button data-legal="terms">Termos</button></nav></footer>
   </main>
 
   <main id="app" class="hidden">
     <div class="app-shell">
       <aside class="sidebar">
-        <div class="user-box"><strong id="userName">Usuário</strong><span class="muted" id="userEmail">modo local</span><div style="margin-top:10px"><span class="pill premium-pill free" id="premiumStatus">Gratuito</span></div><p class="muted" id="usageStatus">0/5 usos IA</p></div>
-        <button class="nav-btn active" data-view="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button>
-        <button class="nav-btn" data-view="business"><i data-lucide="store"></i>Negócio</button>
-        <button class="nav-btn" data-view="chat"><i data-lucide="messages-square"></i>Consultor IA</button>
-        <button class="nav-btn" data-view="diagnosis"><i data-lucide="scan-line"></i>Diagnóstico</button>
-        <button class="nav-btn" data-view="plans"><i data-lucide="list-checks"></i>Planos</button>
-        <button class="nav-btn" data-view="marketing"><i data-lucide="megaphone"></i>Marketing IA</button>
-        <button class="nav-btn" data-view="reports"><i data-lucide="file-down"></i>Relatório</button>
-        <button class="nav-btn" data-view="premium"><i data-lucide="gem"></i>Premium</button>
-        <button class="nav-btn" id="backLanding"><i data-lucide="home"></i>Landing</button>
-        <button class="nav-btn" id="logoutBtn"><i data-lucide="log-out"></i>Sair</button>
+        <div class="user-box"><strong id="userName">Usuário</strong><span class="muted" id="userEmail">conta ativa</span><div style="margin-top:10px"><span class="pill premium-pill free" id="premiumStatus">Gratuito</span></div><p class="muted" id="usageStatus">0/5 usos IA</p></div>
+        <button class="nav-btn active" data-view="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button><button class="nav-btn" data-view="business"><i data-lucide="store"></i>Negócio</button><button class="nav-btn" data-view="chat"><i data-lucide="messages-square"></i>Consultor IA</button><button class="nav-btn" data-view="diagnosis"><i data-lucide="scan-line"></i>Diagnóstico</button><button class="nav-btn" data-view="plans"><i data-lucide="list-checks"></i>Planos</button><button class="nav-btn" data-view="marketing"><i data-lucide="megaphone"></i>Marketing IA</button><button class="nav-btn" data-view="reports"><i data-lucide="file-down"></i>Relatório</button><button class="nav-btn" data-view="premium"><i data-lucide="gem"></i>Premium</button><button class="nav-btn" id="backLanding"><i data-lucide="home"></i>Landing</button><button class="nav-btn" id="logoutBtn"><i data-lucide="log-out"></i>Sair</button>
       </aside>
 
       <section class="app-main">
-        <div class="app-top">
-          <div><h1 id="appHeading">Dashboard executivo</h1><p class="muted" id="appSubheading">Indicadores, alertas e resumo do mês.</p></div>
-          <div class="row"><button class="btn btn-secondary small" id="quickSave"><i data-lucide="save"></i>Salvar</button><button class="btn btn-primary small" id="upgradeTop"><i data-lucide="gem"></i>Premium</button></div>
-        </div>
+        <div class="app-top"><div><h1 id="appHeading">Dashboard executivo</h1><p class="muted" id="appSubheading">Indicadores, alertas e resumo do mês.</p></div><div class="row"><button class="btn btn-secondary small" id="quickSave"><i data-lucide="save"></i>Salvar</button><button class="btn btn-primary small" id="upgradeTop"><i data-lucide="gem"></i>Premium</button></div></div>
 
-        <div class="view active" id="view-dashboard">
-          <div class="dash-grid">
-            <article class="dash-card"><span>Receita</span><strong id="dashRevenue">R$ 0</strong></article>
-            <article class="dash-card"><span>Despesas</span><strong id="dashExpenses">R$ 0</strong></article>
-            <article class="dash-card"><span>Lucro</span><strong id="dashProfit">R$ 0</strong></article>
-            <article class="dash-card"><span>Score</span><strong id="dashScore">0/100</strong></article>
-            <article class="dash-card"><span>Clientes</span><strong id="dashCustomers">0</strong></article>
-            <article class="dash-card"><span>Ticket médio</span><strong id="dashTicket">R$ 0</strong></article>
-            <article class="dash-card"><span>Meta</span><strong id="dashGoal">R$ 0</strong></article>
-            <article class="dash-card"><span>Progresso</span><strong id="dashProgress">0%</strong></article>
-          </div>
-          <div class="two-col">
-            <section class="panel"><h2 id="businessTitle">Cadastre seu negócio</h2><p class="muted" id="monthSummary">Preencha seus dados para receber análises reais.</p><button class="btn btn-primary" data-view-jump="business">Cadastrar negócio</button></section>
-            <section class="panel"><h2>Alertas da IA</h2><div class="result-grid" id="alertList"></div></section>
-          </div>
-        </div>
+        <div class="view active" id="view-dashboard"><div class="dash-grid"><article class="dash-card"><span>Receita</span><strong id="dashRevenue">R$ 0</strong></article><article class="dash-card"><span>Despesas</span><strong id="dashExpenses">R$ 0</strong></article><article class="dash-card"><span>Lucro</span><strong id="dashProfit">R$ 0</strong></article><article class="dash-card"><span>Score</span><strong id="dashScore">0/100</strong></article><article class="dash-card"><span>Clientes</span><strong id="dashCustomers">0</strong></article><article class="dash-card"><span>Ticket médio</span><strong id="dashTicket">R$ 0</strong></article><article class="dash-card"><span>Meta</span><strong id="dashGoal">R$ 0</strong></article><article class="dash-card"><span>Progresso</span><strong id="dashProgress">0%</strong></article></div><div class="two-col"><section class="panel"><h2 id="businessTitle">Cadastre seu negócio</h2><p class="muted" id="monthSummary">Preencha seus dados para receber análises reais.</p><button class="btn btn-primary" data-view-jump="business">Cadastrar negócio</button></section><section class="panel"><h2>Alertas da IA</h2><div class="result-grid" id="alertList"></div></section></div></div>
 
-        <div class="view" id="view-business">
-          <section class="panel">
-            <h2>Cadastro do negócio</h2><p class="muted">Esses dados alimentam o diagnóstico, chat, marketing e relatório.</p>
-            <form id="businessForm" class="input-grid">
-              <label>Nome do negócio<input name="name" placeholder="Ex: Studio Bella" required></label>
-              <label>Área de atuação<input name="type" placeholder="Ex: Salão, loja, oficina" required></label>
-              <label>Cidade/país<input name="location" placeholder="São Luís, Brasil"></label>
-              <label>Faturamento mensal<input name="revenue" type="number" min="0" value="42000"></label>
-              <label>Despesas mensais<input name="expenses" type="number" min="0" value="25800"></label>
-              <label>Clientes por mês<input name="customers" type="number" min="0" value="156"></label>
-              <label>Meta mensal<input name="goal" type="number" min="0" value="52000"></label>
-              <label>Dificuldade atual<input name="challenge" placeholder="Conseguir mais clientes"></label>
-              <label style="grid-column:1/-1">Meta principal<input name="mainGoal" placeholder="Crescer mantendo lucro"></label>
-              <button class="btn btn-primary" type="submit"><i data-lucide="save"></i>Salvar dados</button>
-            </form>
-          </section>
-        </div>
+        <div class="view" id="view-business"><section class="panel"><h2>Cadastro do negócio</h2><p class="muted">Esses dados alimentam o diagnóstico, chat, marketing e relatório.</p><form id="businessForm" class="input-grid"><label>Nome do negócio<input name="name" placeholder="Ex: Studio Bella" required></label><label>Área de atuação<input name="type" placeholder="Ex: Salão, loja, oficina" required></label><label>Cidade/país<input name="location" placeholder="São Luís, Brasil"></label><label>Faturamento mensal<input name="revenue" type="number" min="0" value="42000"></label><label>Despesas mensais<input name="expenses" type="number" min="0" value="25800"></label><label>Clientes por mês<input name="customers" type="number" min="0" value="156"></label><label>Meta mensal<input name="goal" type="number" min="0" value="52000"></label><label>Dificuldade atual<input name="challenge" placeholder="Conseguir mais clientes"></label><label style="grid-column:1/-1">Meta principal<input name="mainGoal" placeholder="Crescer mantendo lucro"></label><button class="btn btn-primary" type="submit"><i data-lucide="save"></i>Salvar dados</button></form></section></div>
 
-        <div class="view" id="view-chat">
-          <section class="panel">
-            <h2>Consultor IA</h2>
-            <div class="chat-list" id="chatList"><div class="chat-message ai">Olá! Cadastre seu negócio e me pergunte sobre vendas, caixa, marketing, precificação ou crescimento.</div></div>
-            <div class="chat-input"><input id="chatInput" placeholder="Ex: Como conseguir mais clientes esta semana?"><button class="btn btn-primary" id="sendChat"><i data-lucide="send"></i>Enviar</button></div>
-          </section>
-        </div>
+        <div class="view" id="view-chat"><section class="panel"><h2>Consultor IA</h2><div class="chat-list" id="chatList"><div class="chat-message ai">Olá! Cadastre seu negócio e me pergunte sobre vendas, caixa, marketing, precificação ou crescimento.</div></div><div class="chat-input"><input id="chatInput" placeholder="Ex: Como conseguir mais clientes esta semana?"><button class="btn btn-primary" id="sendChat"><i data-lucide="send"></i>Enviar</button></div></section></div>
 
-        <div class="view" id="view-diagnosis">
-          <section class="panel"><div class="row" style="justify-content:space-between"><div><h2>Diagnóstico empresarial</h2><p class="muted">Nota, riscos, oportunidades e prioridade da semana.</p></div><button class="btn btn-primary" id="generateDiagnosis">Gerar diagnóstico</button></div><div class="result-grid" id="diagnosisResult"></div></section>
-        </div>
-
-        <div class="view" id="view-plans">
-          <section class="panel"><h2>Planos de ação</h2><p class="muted">Escolha um período.</p><div class="row"><button class="btn btn-secondary" data-plan="7">7 dias</button><button class="btn btn-secondary" data-plan="30">30 dias</button><button class="btn btn-secondary" data-plan="90">90 dias</button></div><div class="result-grid" id="planResult"></div></section>
-        </div>
-
-        <div class="view" id="view-marketing">
-          <section class="panel"><div class="row" style="justify-content:space-between"><div><h2>Marketing IA</h2><p class="muted">Posts, campanhas e promoções para seu segmento.</p></div><button class="btn btn-primary" id="generateMarketing">Gerar marketing</button></div><div class="result-grid" id="marketingResult"></div></section>
-        </div>
-
-        <div class="view" id="view-reports">
-          <section class="panel"><div class="row" style="justify-content:space-between"><div><h2>Relatório executivo</h2><p class="muted">Clique para montar e salvar como PDF.</p></div><button class="btn btn-primary" id="exportPdf"><i data-lucide="file-down"></i>Salvar PDF</button></div><div class="result-grid" id="reportResult"></div></section>
-        </div>
-
-        <div class="view" id="view-premium">
-          <section class="panel">
-            <span class="pill">Premium</span><h2>Desbloqueie o CEO completo</h2><p class="muted">IA ilimitada, planos de 90 dias, marketing ilimitado e relatórios completos.</p>
-            <div class="price-grid"><article class="price-card featured"><h3>R$ 29,90<span>/mês</span></h3><ul class="check-list"><li>IA ilimitada</li><li>Relatórios PDF</li><li>Planos de 90 dias</li><li>Marketing IA ilimitado</li></ul><button class="btn btn-primary" id="startPayment">Ativar premium</button></article><article class="price-card"><h3>Demonstração Premium</h3><p>Libere os recursos avançados nesta conta para avaliar a experiência completa.</p><button class="btn btn-secondary" id="localPremium">Liberar Premium nesta conta</button></article></div>
-          </section>
-        </div>
+        <div class="view" id="view-diagnosis"><section class="panel"><div class="row" style="justify-content:space-between"><div><h2>Diagnóstico empresarial</h2><p class="muted">Nota, riscos, oportunidades e prioridade da semana.</p></div><button class="btn btn-primary" id="generateDiagnosis">Gerar diagnóstico</button></div><div class="result-grid" id="diagnosisResult"></div></section></div>
+        <div class="view" id="view-plans"><section class="panel"><h2>Planos de ação</h2><p class="muted">Escolha um período.</p><div class="row"><button class="btn btn-secondary" data-plan="7">7 dias</button><button class="btn btn-secondary" data-plan="30">30 dias</button><button class="btn btn-secondary" data-plan="90">90 dias</button></div><div class="result-grid" id="planResult"></div></section></div>
+        <div class="view" id="view-marketing"><section class="panel"><div class="row" style="justify-content:space-between"><div><h2>Marketing IA</h2><p class="muted">Posts, campanhas e promoções para seu segmento.</p></div><button class="btn btn-primary" id="generateMarketing">Gerar marketing</button></div><div class="result-grid" id="marketingResult"></div></section></div>
+        <div class="view" id="view-reports"><section class="panel"><div class="row" style="justify-content:space-between"><div><h2>Relatório executivo</h2><p class="muted">Clique para montar e salvar como PDF.</p></div><button class="btn btn-primary" id="exportPdf"><i data-lucide="file-down"></i>Salvar PDF</button></div><div class="result-grid" id="reportResult"></div></section></div>
+        <div class="view" id="view-premium"><section class="panel"><span class="pill">Premium</span><h2>Desbloqueie o CEO completo</h2><p class="muted">IA ilimitada, planos de 90 dias, marketing ilimitado e relatórios completos.</p><div class="price-grid"><article class="price-card featured"><h3>R$ 29,90<span>/mês</span></h3><ul class="check-list"><li>IA ilimitada</li><li>Relatórios PDF</li><li>Planos de 90 dias</li><li>Marketing IA ilimitado</li></ul><button class="btn btn-primary" id="startPayment">Ativar premium</button></article><article class="price-card"><h3>Demonstração Premium</h3><p>Libere os recursos avançados nesta conta para avaliar a experiência completa.</p><button class="btn btn-secondary" id="localPremium">Liberar Premium nesta conta</button></article></div></section></div>
       </section>
     </div>
   </main>
 
-  <main id="legal" class="legal-page hidden">
-    <section class="legal-card"><button class="btn btn-secondary small" id="closeLegal">Voltar</button><div id="legalContent"></div></section>
-  </main>
+  <main id="legal" class="legal-page hidden"><section class="legal-card"><button class="btn btn-secondary small" id="closeLegal">Voltar</button><div id="legalContent"></div></section></main>
 
   <div class="modal" id="authModal" aria-hidden="true">
-    <div class="auth-card">
+    <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
       <div class="row" style="justify-content:space-between"><div><h2 id="authTitle">Entrar</h2><p class="muted" id="authSubtitle">Acesse seu CEO particular.</p></div><button class="icon-btn" id="closeAuth" aria-label="Fechar"><i data-lucide="x"></i></button></div>
       <div class="form-grid">
-        <label>E-mail<input id="authEmail" type="email" placeholder="voce@empresa.com"></label>
-        <label>Senha<input id="authPassword" type="password" placeholder="mínimo 6 caracteres"></label>
-        <div class="auth-actions"><button class="btn btn-primary" id="authSubmit">Entrar</button><button class="btn btn-secondary" id="authGoogle"><i data-lucide="user-check"></i>Continuar rápido</button></div>
-        <div class="row" style="justify-content:space-between"><button class="text-btn" id="toggleAuth">Criar conta grátis</button><button class="text-btn" id="resetPassword">Esqueci a senha</button></div>
+        <label id="authNameWrap" class="hidden">Nome completo<input id="authName" type="text" autocomplete="name" placeholder="Seu nome"></label>
+        <label>E-mail<input id="authEmail" type="email" autocomplete="email" inputmode="email" placeholder="voce@empresa.com"></label>
+        <label>Senha<div class="password-wrap"><input id="authPassword" type="password" autocomplete="current-password" placeholder="mínimo 6 caracteres"><button type="button" class="password-toggle" id="togglePassword" aria-label="Mostrar senha"><i data-lucide="eye"></i></button></div><small class="auth-help" id="passwordHelp">Use pelo menos 6 caracteres.</small></label>
+        <label id="termsWrap" class="auth-check hidden"><input id="authTerms" type="checkbox"><span>Li e aceito os Termos de Uso e a Política de Privacidade.</span></label>
+        <div class="auth-message hidden" id="authMessage" aria-live="polite"></div>
+        <button class="btn btn-primary full" id="authSubmit">Entrar</button>
+        <div class="auth-divider"><span>ou</span></div>
+        <button class="btn btn-secondary full" id="authGoogle"><i data-lucide="user-check"></i>Continuar com Google</button>
+        <div class="row auth-bottom"><button class="text-btn" id="toggleAuth">Criar conta grátis</button><button class="text-btn" id="resetPassword">Esqueci a senha</button></div>
       </div>
     </div>
   </div>
   <div class="toast-host" id="toastHost"></div>
 
-<script>
-(() => {
-  "use strict";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
+  import {
+    getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword,
+    createUserWithEmailAndPassword, sendPasswordResetEmail, updateProfile,
+    signOut, onAuthStateChanged, setPersistence, browserLocalPersistence
+  } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  import {
+    getFirestore, doc, setDoc, getDoc, addDoc, collection, serverTimestamp, increment
+  } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBmV0TpafE1Mx3F8TNtvq0yM5R0qsUxPqQ",
+    authDomain: "ceo-de-bolso-9dc75.firebaseapp.com",
+    projectId: "ceo-de-bolso-9dc75",
+    storageBucket: "ceo-de-bolso-9dc75.firebasestorage.app",
+    messagingSenderId: "330073657378",
+    appId: "1:330073657378:web:40152341d3101aa48dfa7b",
+    measurementId: "G-PQ5XQB6YQ1"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
+
+  try { await setPersistence(auth, browserLocalPersistence); } catch (error) { console.warn("Persistência indisponível.", error); }
+  isSupported().then((ok) => { if (ok) getAnalytics(app); }).catch(() => {});
+
   const $ = (s, sc=document) => sc.querySelector(s);
   const $$ = (s, sc=document) => Array.from(sc.querySelectorAll(s));
   const money = new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
-  const STORAGE = "ceo_de_bolso_ai_v3";
+  const STORAGE = "ceo_de_bolso_ai_v4";
   const state = loadState();
+
+  function mapAuthError(error) {
+    const code = error?.code || "";
+    const messages = {
+      "auth/email-already-in-use": "Este e-mail já está cadastrado. Entre em vez de criar uma nova conta.",
+      "auth/invalid-email": "Informe um e-mail válido.",
+      "auth/weak-password": "A senha precisa ter pelo menos 6 caracteres.",
+      "auth/user-not-found": "Não encontramos uma conta com esse e-mail.",
+      "auth/wrong-password": "Senha incorreta.",
+      "auth/invalid-credential": "E-mail ou senha incorretos.",
+      "auth/popup-closed-by-user": "Login cancelado antes de concluir.",
+      "auth/popup-blocked": "O navegador bloqueou a janela de login. Libere pop-ups e tente novamente.",
+      "auth/unauthorized-domain": "Este domínio ainda não está autorizado no Firebase Authentication.",
+      "permission-denied": "Permissão negada no banco de dados. Confira as regras do Firestore."
+    };
+    return messages[code] || error?.message || "Não foi possível concluir a operação.";
+  }
 
   function loadState(){
     const base = {user:null,business:null,premium:false,usage:{},history:[],lastDiagnosis:null};
     try { return {...base, ...(JSON.parse(localStorage.getItem(STORAGE)||"{}"))}; } catch { return base; }
   }
   function saveState(){ localStorage.setItem(STORAGE, JSON.stringify(state)); }
+  function uid(){ const user=auth.currentUser; if(!user) throw new Error("Você precisa estar logado."); return user.uid; }
   function monthKey(){ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`; }
   function usage(){ return Number(state.usage[monthKey()]||0); }
   function premium(){ return !!state.premium; }
-  function incUsage(){ if(!premium()){ state.usage[monthKey()] = usage()+1; saveState(); renderUsage(); } }
   function canUseAI(){ return premium() || usage() < 5; }
   function toast(msg){ const host=$("#toastHost"); const item=document.createElement("div"); item.className="toast"; item.textContent=msg; host.appendChild(item); setTimeout(()=>item.remove(),4800); }
   function icons(){ if(window.lucide) window.lucide.createIcons(); }
   function escapeHtml(v){ return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
   function n(v){ const x=Number(v); return Number.isFinite(x)?x:0; }
   function setLoading(btn, on, text="Carregando..."){ if(!btn)return; if(on){btn.dataset.old=btn.textContent;btn.disabled=true;btn.textContent=text}else{btn.disabled=false;btn.textContent=btn.dataset.old||btn.textContent;icons();} }
+
+  async function ensureProfile(user) {
+    if (!user) return null;
+    const ref = doc(db, "users", user.uid, "profile", "main");
+    const snap = await getDoc(ref);
+    const base = {
+      uid: user.uid,
+      email: user.email || "",
+      name: user.displayName || (user.email ? user.email.split("@")[0] : "Usuário"),
+      photoURL: user.photoURL || "",
+      premium: false,
+      usage: {},
+      updatedAt: serverTimestamp()
+    };
+    if (!snap.exists()) {
+      await setDoc(ref, { ...base, createdAt: serverTimestamp() }, { merge: true });
+      return base;
+    }
+    return { ...base, ...snap.data() };
+  }
+  async function getProfile(){ return auth.currentUser ? ensureProfile(auth.currentUser) : null; }
+  async function saveProfile(data={}){ const ref=doc(db,"users",uid(),"profile","main"); await setDoc(ref,{...data,updatedAt:serverTimestamp()},{merge:true}); const snap=await getDoc(ref); return snap.exists()?snap.data():data; }
+  async function getBusiness(){ const ref=doc(db,"users",uid(),"business","main"); const snap=await getDoc(ref); return snap.exists()?snap.data():null; }
+  async function saveBusiness(data={}){ const ref=doc(db,"users",uid(),"business","main"); await setDoc(ref,{...data,updatedAt:serverTimestamp()},{merge:true}); const snap=await getDoc(ref); return snap.exists()?snap.data():data; }
+  async function incrementUsageCloud(){ const key=monthKey(); const ref=doc(db,"users",uid(),"profile","main"); await setDoc(ref,{usage:{[key]:increment(1)},updatedAt:serverTimestamp()},{merge:true}); return getProfile(); }
+  async function saveHistory(data={}){ await addDoc(collection(db,"users",uid(),"history"),{...data,createdAt:serverTimestamp()}); }
+
+  async function signUpEmail(email,password,name){
+    try{
+      const result=await createUserWithEmailAndPassword(auth,email,password);
+      if(name) await updateProfile(result.user,{displayName:name});
+      await ensureProfile(result.user);
+      if(name) await saveProfile({name});
+      return result.user;
+    }catch(error){ throw new Error(mapAuthError(error)); }
+  }
+  async function signInEmail(email,password){ try{ const result=await signInWithEmailAndPassword(auth,email,password); await ensureProfile(result.user); return result.user; }catch(error){ throw new Error(mapAuthError(error)); } }
+  async function signInGoogle(){ try{ const result=await signInWithPopup(auth,provider); await ensureProfile(result.user); return result.user; }catch(error){ throw new Error(mapAuthError(error)); } }
+  async function resetPassword(email){ try{ await sendPasswordResetEmail(auth,email); }catch(error){ throw new Error(mapAuthError(error)); } }
+
+  function firebaseUserToState(user){ return user ? {uid:user.uid,email:user.email||"",name:user.displayName||(user.email?user.email.split("@")[0]:"Usuário"),photoURL:user.photoURL||"",mode:"firebase"} : null; }
+  async function loadCloudData(user){
+    if(!user) return;
+    state.user=firebaseUserToState(user);
+    try{
+      const profile=await getProfile();
+      const business=await getBusiness();
+      state.premium=!!profile?.premium;
+      state.usage=profile?.usage||{};
+      if(business){ const {createdAt,updatedAt,...clean}=business; state.business=clean; }
+      saveState(); renderAll(); fillForm();
+    }catch(error){ console.warn(error); toast(mapAuthError(error)); }
+  }
+  async function saveBusinessEverywhere(data){
+    state.business=data; saveState(); renderAll();
+    try{
+      if(auth.currentUser){
+        const saved=await saveBusiness(data);
+        const {createdAt,updatedAt,...clean}=saved||data;
+        state.business=clean; saveState(); renderAll();
+      }
+    }catch(error){ toast(mapAuthError(error)); }
+  }
+  function incUsage(){
+    if(!premium()){
+      state.usage[monthKey()] = usage()+1; saveState(); renderUsage();
+      if(auth.currentUser) incrementUsageCloud().then((profile)=>{state.usage=profile?.usage||state.usage;state.premium=!!profile?.premium;saveState();renderUsage();}).catch(()=>{});
+    }
+  }
 
   function normalizeBusiness(raw={}){
     const revenue=n(raw.revenue||42000), expenses=n(raw.expenses||25800), customers=n(raw.customers||156), goal=n(raw.goal||52000);
@@ -308,138 +284,106 @@
     a.push({level:"success",title:"Próxima ação",text:"Use a base de clientes para uma campanha de recompra esta semana."});
     return a;
   }
-
   function localAI(action, extra={}){
-    const b=normalizeBusiness(state.business||{});
-    const s=score(b);
-    const weakMargin = b.margin < 25;
-    const weakGoal = b.goalProgress < 85;
-    if(action==="chat"){
-      return {answer:`Analisando ${b.name}: hoje você tem receita de ${money.format(b.revenue)}, lucro de ${money.format(b.profit)} e margem de ${b.margin}%.\n\nPrioridade prática:\n1. ${weakGoal?"Criar uma oferta rápida para aproximar da meta mensal.":"Manter ritmo de vendas e aumentar recompra."}\n2. ${weakMargin?"Revisar custos e subir preço nos serviços/produtos com baixa margem.":"Proteger a margem e vender itens de maior lucro."}\n3. Fazer follow-up com clientes antigos ainda hoje.\n4. Publicar prova social e uma oferta com prazo curto.\n\nPara esta semana: crie uma campanha simples: “volte esta semana e ganhe condição especial”.`};
-    }
-    if(action==="diagnosis"){
-      return {score:s, executiveSummary:`${b.name} tem uma operação com ${money.format(b.revenue)} de receita, ${money.format(b.expenses)} de despesas e margem de ${b.margin}%. O maior foco agora é ${weakGoal?"aumentar vendas no curto prazo":"fortalecer recorrência e previsibilidade"}.`, strengths:["Já existe faturamento mensurável","Dados básicos suficientes para tomar decisão","Há meta clara para acompanhamento"], weaknesses:[weakMargin?"Margem abaixo do ideal":"Pode melhorar previsibilidade de vendas",weakGoal?"Meta mensal ainda distante":"Dependência de poucas ações de venda","Marketing precisa de rotina semanal"], risks:["Custos subirem sem acompanhamento","Falta de recompra dos clientes atuais","Tomar decisões sem medir lucro"], opportunities:["Campanha de recompra","Pacotes ou combos com ticket maior","Conteúdo de autoridade no Instagram","Indicação de clientes atuais"], actionPlan:["Hoje: levantar 20 clientes antigos para follow-up","Amanhã: publicar uma oferta com prazo","Em 3 dias: revisar os 5 maiores custos","Em 7 dias: medir lucro real e conversão"], marketingRecommendation:"Publique prova social, bastidores e oferta com escassez. Foque em confiança e resultado real.", financialRecommendation:"Acompanhe margem semanal, corte custos sem retorno e aumente preço onde há baixa margem.", weekPriority:"Gerar vendas rápidas com recompra e indicação."};
-    }
-    if(action==="plan"){
-      const h=String(extra.horizon||"30");
-      const tasks = h==="7" ? [["Dia 1","Revisar números e listar clientes antigos."],["Dia 2","Criar oferta de recompra."],["Dia 3","Postar prova social e bastidores."],["Dia 4","Fazer 20 contatos diretos."],["Dia 5","Revisar custos recorrentes."],["Dia 6","Criar combo de maior ticket."],["Dia 7","Medir resultado e repetir o que funcionou."]]
-      : h==="90" ? [["Semanas 1-2","Organizar financeiro, custos e metas."],["Semanas 3-4","Criar calendário de conteúdo e oferta fixa."],["Mês 2","Melhorar precificação, ticket médio e processo de vendas."],["Mês 3","Criar recorrência, indicação e acompanhamento semanal de KPIs."]]
-      : [["Semana 1","Arrumar financeiro, meta, oferta e recompra."],["Semana 2","Publicar conteúdo diário e fazer prospecção leve."],["Semana 3","Revisar preços, custos e margem."],["Semana 4","Criar rotina de métricas e repetir campanhas vencedoras."]];
-      return {objective:`Crescer ${b.name} em ${h} dias com foco em caixa, venda e margem.`,tasks};
-    }
-    if(action==="marketing"){
-      return {campaign:`Campanha: ${b.type} com resultado visível`, adCopy:`Seu negócio precisa de uma oferta clara: destaque benefício, prova social e prazo curto. Ex: “Agenda da semana aberta com condição especial até sexta.”`, posts:[["Segunda","Reels","Mostre um antes/depois ou resultado de cliente","Quer esse resultado também? Chame no direct."],["Terça","Carrossel","3 erros que fazem clientes perderem dinheiro/tempo","Salve para consultar depois."],["Quarta","Story","Bastidores do atendimento/produto","Responda 'quero' para receber a oferta."],["Quinta","Post","Depoimento ou prova social","Clique no link e fale conosco."],["Sexta","Reels","Oferta com prazo até domingo","Últimas vagas/condição especial."]].map(([day,format,idea,caption])=>({day,format,idea,caption,cta:"Chamar no WhatsApp"})), promoIdeas:["Oferta para clientes antigos","Combo com ticket maior","Indique e ganhe","Condição especial com prazo"]};
-    }
+    const b=normalizeBusiness(state.business||{}), weakMargin=b.margin<25, weakGoal=b.goalProgress<85, s=score(b);
+    if(action==="chat") return {answer:`Analisando ${b.name}: receita de ${money.format(b.revenue)}, lucro de ${money.format(b.profit)} e margem de ${b.margin}%.\n\nPrioridade prática:\n1. ${weakGoal?"Criar uma oferta rápida para aproximar da meta mensal.":"Manter ritmo de vendas e aumentar recompra."}\n2. ${weakMargin?"Revisar custos e subir preço nos itens de baixa margem.":"Proteger a margem e vender itens de maior lucro."}\n3. Fazer follow-up com clientes antigos ainda hoje.\n4. Publicar prova social e uma oferta com prazo curto.`};
+    if(action==="diagnosis") return {score:s,executiveSummary:`${b.name} tem ${money.format(b.revenue)} de receita, ${money.format(b.expenses)} de despesas e margem de ${b.margin}%. O foco agora é ${weakGoal?"aumentar vendas no curto prazo":"fortalecer recorrência e previsibilidade"}.`,strengths:["Já existe faturamento mensurável","Dados básicos suficientes para tomar decisão","Há meta clara para acompanhamento"],weaknesses:[weakMargin?"Margem abaixo do ideal":"Pode melhorar previsibilidade de vendas",weakGoal?"Meta mensal ainda distante":"Dependência de poucas ações de venda","Marketing precisa de rotina semanal"],risks:["Custos subirem sem acompanhamento","Falta de recompra dos clientes atuais","Tomar decisões sem medir lucro"],opportunities:["Campanha de recompra","Pacotes ou combos com ticket maior","Conteúdo de autoridade no Instagram","Indicação de clientes atuais"],actionPlan:["Hoje: levantar 20 clientes antigos para follow-up","Amanhã: publicar uma oferta com prazo","Em 3 dias: revisar os 5 maiores custos","Em 7 dias: medir lucro real e conversão"],marketingRecommendation:"Publique prova social, bastidores e oferta com escassez.",financialRecommendation:"Acompanhe margem semanal, corte custos sem retorno e aumente preço onde há baixa margem.",weekPriority:"Gerar vendas rápidas com recompra e indicação."};
+    if(action==="plan"){ const h=String(extra.horizon||"30"); const tasks=h==="7"?[["Dia 1","Revisar números e listar clientes antigos."],["Dia 2","Criar oferta de recompra."],["Dia 3","Postar prova social e bastidores."],["Dia 4","Fazer 20 contatos diretos."],["Dia 5","Revisar custos recorrentes."],["Dia 6","Criar combo de maior ticket."],["Dia 7","Medir resultado e repetir o que funcionou."]]:h==="90"?[["Semanas 1-2","Organizar financeiro, custos e metas."],["Semanas 3-4","Criar calendário de conteúdo e oferta fixa."],["Mês 2","Melhorar precificação, ticket médio e processo de vendas."],["Mês 3","Criar recorrência, indicação e KPIs."]]:[["Semana 1","Arrumar financeiro, meta, oferta e recompra."],["Semana 2","Publicar conteúdo diário e fazer prospecção leve."],["Semana 3","Revisar preços, custos e margem."],["Semana 4","Criar rotina de métricas e repetir campanhas vencedoras."]]; return {objective:`Crescer ${b.name} em ${h} dias com foco em caixa, venda e margem.`,tasks}; }
+    if(action==="marketing") return {campaign:`Campanha: ${b.type} com resultado visível`,adCopy:`Destaque benefício, prova social e prazo curto. Ex: “Agenda da semana aberta com condição especial até sexta.”`,posts:[["Segunda","Reels","Mostre um antes/depois ou resultado de cliente","Quer esse resultado também? Chame no direct."],["Terça","Carrossel","3 erros que fazem clientes perderem dinheiro/tempo","Salve para consultar depois."],["Quarta","Story","Bastidores do atendimento/produto","Responda 'quero' para receber a oferta."],["Quinta","Post","Depoimento ou prova social","Clique no link e fale conosco."],["Sexta","Reels","Oferta com prazo até domingo","Últimas vagas/condição especial."]].map(([day,format,idea,caption])=>({day,format,idea,caption,cta:"Chamar no WhatsApp"})),promoIdeas:["Oferta para clientes antigos","Combo com ticket maior","Indique e ganhe","Condição especial com prazo"]};
     return {answer:"Pronto. Dados analisados."};
   }
-
   async function callAI(action, extra={}){
     if(!state.business && action!=="demo"){ setView("business"); throw new Error("Cadastre os dados do negócio antes de usar a IA."); }
     if(!canUseAI()){ setView("premium"); throw new Error("Limite gratuito atingido. Ative o Premium."); }
-    const payload={action,business:state.business,premium:premium(),...extra};
-    try{
-      const res=await fetch("/api/ia",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-      if(res.ok){ const json=await res.json(); incUsage(); return json.data||json; }
-    }catch(e){}
-    const data=localAI(action,extra); incUsage(); return data;
+    const data=localAI(action,extra);
+    incUsage();
+    if(auth.currentUser) saveHistory({action, question: extra.question || "", answer: JSON.stringify(data).slice(0,4000)}).catch(()=>{});
+    return data;
   }
 
-  function showApp(){
-    $("#landing").classList.add("hidden"); $("#legal").classList.add("hidden"); $("#app").classList.remove("hidden");
-    renderAll(); window.scrollTo({top:0,behavior:"smooth"}); icons();
-  }
+  function showApp(){ $("#landing").classList.add("hidden"); $("#legal").classList.add("hidden"); $("#app").classList.remove("hidden"); renderAll(); window.scrollTo({top:0,behavior:"smooth"}); icons(); }
   function showLanding(){ $("#app").classList.add("hidden"); $("#legal").classList.add("hidden"); $("#landing").classList.remove("hidden"); icons(); }
-  function renderUsage(){
-    $("#usageStatus").textContent = premium() ? "IA ilimitada" : `${usage()}/5 usos IA`;
-    $("#premiumStatus").textContent = premium() ? "Premium" : "Gratuito";
-    $("#premiumStatus").classList.toggle("free", !premium());
-  }
+  function renderUsage(){ $("#usageStatus").textContent=premium()?"IA ilimitada":`${usage()}/5 usos IA`; $("#premiumStatus").textContent=premium()?"Premium":"Gratuito"; $("#premiumStatus").classList.toggle("free",!premium()); }
   function renderDashboard(){
     const b=normalizeBusiness(state.business||{}), sc=state.business?score(b):0;
-    $("#userName").textContent = state.user?.name || "Usuário";
-    $("#userEmail").textContent = state.user?.email || "conta ativa";
-    $("#businessTitle").textContent = state.business ? `${b.name} — ${b.type}` : "Cadastre seu negócio";
-    $("#monthSummary").textContent = state.business ? `Resumo do mês: receita de ${money.format(b.revenue)}, lucro de ${money.format(b.profit)}, margem de ${b.margin}% e meta em ${b.goalProgress}%.` : "Preencha seus dados para receber análises reais.";
+    $("#userName").textContent=state.user?.name||"Usuário"; $("#userEmail").textContent=state.user?.email||"conta ativa";
+    $("#businessTitle").textContent=state.business?`${b.name} — ${b.type}`:"Cadastre seu negócio"; $("#monthSummary").textContent=state.business?`Resumo do mês: receita de ${money.format(b.revenue)}, lucro de ${money.format(b.profit)}, margem de ${b.margin}% e meta em ${b.goalProgress}%.`:"Preencha seus dados para receber análises reais.";
     $("#dashRevenue").textContent=money.format(state.business?b.revenue:0); $("#dashExpenses").textContent=money.format(state.business?b.expenses:0); $("#dashProfit").textContent=money.format(state.business?b.profit:0); $("#dashScore").textContent=`${sc}/100`; $("#dashCustomers").textContent=state.business?b.customers:0; $("#dashTicket").textContent=money.format(state.business?b.ticket:0); $("#dashGoal").textContent=money.format(state.business?b.goal:0); $("#dashProgress").textContent=`${state.business?b.goalProgress:0}%`;
-    $("#alertList").innerHTML = alerts(b).map(x=>`<article class="alert-item ${escapeHtml(x.level)}"><strong>${escapeHtml(x.title)}</strong><p class="muted">${escapeHtml(x.text)}</p></article>`).join("");
-    renderUsage();
+    $("#alertList").innerHTML=alerts(b).map(x=>`<article class="alert-item ${escapeHtml(x.level)}"><strong>${escapeHtml(x.title)}</strong><p class="muted">${escapeHtml(x.text)}</p></article>`).join(""); renderUsage();
   }
-  function fillForm(){
-    const b=normalizeBusiness(state.business||{}); const f=$("#businessForm"); if(!f)return;
-    ["name","type","location","revenue","expenses","customers","goal","challenge","mainGoal"].forEach(k=>{ if(f.elements[k]) f.elements[k].value=b[k]||""; });
-  }
+  function fillForm(){ const b=normalizeBusiness(state.business||{}), f=$("#businessForm"); if(!f)return; ["name","type","location","revenue","expenses","customers","goal","challenge","mainGoal"].forEach(k=>{ if(f.elements[k]) f.elements[k].value=b[k]||""; }); }
   function collectForm(){ const f=$("#businessForm"); return Object.fromEntries(["name","type","location","revenue","expenses","customers","goal","challenge","mainGoal"].map(k=>[k,["revenue","expenses","customers","goal"].includes(k)?n(f.elements[k].value):f.elements[k].value.trim()])); }
   function renderAll(){ renderDashboard(); fillForm(); }
-
-  function setView(v){
-    $$(".view").forEach(x=>x.classList.toggle("active",x.id===`view-${v}`)); $$(".nav-btn[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
-    const titles={dashboard:["Dashboard executivo","Indicadores, alertas e resumo do mês."],business:["Cadastro do negócio","Dados que alimentam o consultor e relatórios."],chat:["Consultor IA","Pergunte sobre finanças, marketing, vendas e crescimento."],diagnosis:["Diagnóstico empresarial","Nota, riscos e oportunidades."],plans:["Planos de ação","Tarefas para 7, 30 e 90 dias."],marketing:["Marketing IA","Conteúdo, anúncios e calendário semanal."],reports:["Relatório executivo","Documento pronto para salvar em PDF."],premium:["Premium","IA ilimitada e recursos completos."]};
-    $("#appHeading").textContent=titles[v]?.[0]||"CEO de Bolso AI"; $("#appSubheading").textContent=titles[v]?.[1]||"";
-  }
+  function setView(v){ $$(".view").forEach(x=>x.classList.toggle("active",x.id===`view-${v}`)); $$(".nav-btn[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===v)); const titles={dashboard:["Dashboard executivo","Indicadores, alertas e resumo do mês."],business:["Cadastro do negócio","Dados que alimentam o consultor e relatórios."],chat:["Consultor IA","Pergunte sobre finanças, marketing, vendas e crescimento."],diagnosis:["Diagnóstico empresarial","Nota, riscos e oportunidades."],plans:["Planos de ação","Tarefas para 7, 30 e 90 dias."],marketing:["Marketing IA","Conteúdo, anúncios e calendário semanal."],reports:["Relatório executivo","Documento pronto para salvar em PDF."],premium:["Premium","IA ilimitada e recursos completos."]}; $("#appHeading").textContent=titles[v]?.[0]||"CEO de Bolso AI"; $("#appSubheading").textContent=titles[v]?.[1]||""; }
   function listBlock(title, items){ return `<article class="result-item"><strong>${escapeHtml(title)}</strong><ul class="check-list">${items.map(i=>`<li>${escapeHtml(i)}</li>`).join("")}</ul></article>`; }
   function renderDiagnosis(d){ state.lastDiagnosis=d; saveState(); $("#diagnosisResult").innerHTML=[`<article class="result-item"><strong>Nota geral: ${d.score}/100</strong><p class="muted">${escapeHtml(d.executiveSummary)}</p></article>`,listBlock("Pontos fortes",d.strengths),listBlock("Pontos fracos",d.weaknesses),listBlock("Riscos",d.risks),listBlock("Oportunidades",d.opportunities),listBlock("Plano de ação",d.actionPlan),`<article class="result-item"><strong>Marketing</strong><p class="muted">${escapeHtml(d.marketingRecommendation)}</p></article>`,`<article class="result-item"><strong>Financeiro</strong><p class="muted">${escapeHtml(d.financialRecommendation)}</p></article>`,`<article class="result-item"><strong>Prioridade da semana</strong><p class="muted">${escapeHtml(d.weekPriority)}</p></article>`].join(""); }
   function renderPlan(d){ $("#planResult").innerHTML=[`<article class="result-item"><strong>Objetivo</strong><p class="muted">${escapeHtml(d.objective)}</p></article>`,...d.tasks.map(([p,t])=>`<article class="timeline-item"><strong>${escapeHtml(p)}</strong><p class="muted">${escapeHtml(t)}</p></article>`)].join(""); }
   function renderMarketing(d){ $("#marketingResult").innerHTML=[`<article class="result-item"><strong>${escapeHtml(d.campaign)}</strong><p class="muted">${escapeHtml(d.adCopy)}</p></article>`,...d.posts.map(p=>`<article class="result-item"><strong>${escapeHtml(p.day)} — ${escapeHtml(p.format)}</strong><p class="muted">${escapeHtml(p.idea)}</p><p class="muted">${escapeHtml(p.caption)}</p><span class="pill">${escapeHtml(p.cta)}</span></article>`),listBlock("Ideias de promoções",d.promoIdeas)].join(""); }
-  function buildReport(){
-    const b=normalizeBusiness(state.business||{}); const d=state.lastDiagnosis || localAI("diagnosis");
-    $("#reportResult").innerHTML = `<article class="result-item"><strong>Relatório — ${escapeHtml(b.name)}</strong><p class="muted">Data: ${new Date().toLocaleDateString("pt-BR")}</p></article><article class="result-item"><strong>Resumo financeiro</strong><p class="muted">Receita: ${money.format(b.revenue)} | Despesas: ${money.format(b.expenses)} | Lucro: ${money.format(b.profit)} | Margem: ${b.margin}% | Meta: ${b.goalProgress}%</p></article><article class="result-item"><strong>Resumo executivo</strong><p class="muted">${escapeHtml(d.executiveSummary)}</p></article>${listBlock("Plano de ação",d.actionPlan)}${listBlock("Oportunidades",d.opportunities)}`;
-  }
+  function buildReport(){ const b=normalizeBusiness(state.business||{}), d=state.lastDiagnosis||localAI("diagnosis"); $("#reportResult").innerHTML=`<article class="result-item"><strong>Relatório — ${escapeHtml(b.name)}</strong><p class="muted">Data: ${new Date().toLocaleDateString("pt-BR")}</p></article><article class="result-item"><strong>Resumo financeiro</strong><p class="muted">Receita: ${money.format(b.revenue)} | Despesas: ${money.format(b.expenses)} | Lucro: ${money.format(b.profit)} | Margem: ${b.margin}% | Meta: ${b.goalProgress}%</p></article><article class="result-item"><strong>Resumo executivo</strong><p class="muted">${escapeHtml(d.executiveSummary)}</p></article>${listBlock("Plano de ação",d.actionPlan)}${listBlock("Oportunidades",d.opportunities)}`; }
 
-  function openAuth(mode="login"){ $("#authModal").classList.add("open"); $("#authModal").setAttribute("aria-hidden","false"); $("#authModal").dataset.mode=mode; $("#authTitle").textContent=mode==="signup"?"Criar conta":"Entrar"; $("#authSubmit").textContent=mode==="signup"?"Criar conta":"Entrar"; $("#toggleAuth").textContent=mode==="signup"?"Já tenho conta":"Criar conta grátis"; }
+  function setAuthMessage(message="", type="info"){ const el=$("#authMessage"); if(!el)return; if(!message){ el.className="auth-message hidden"; el.textContent=""; return; } el.className=`auth-message ${type}`; el.textContent=message; }
+  function validateEmail(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(email||"").trim()); }
+  function authMode(){ return $("#authModal")?.dataset.mode || "login"; }
+  function updateAuthUI(mode="login"){
+    const signup=mode==="signup"; $("#authModal").dataset.mode=mode; $("#authTitle").textContent=signup?"Criar conta":"Entrar"; $("#authSubtitle").textContent=signup?"Crie sua conta para salvar e sincronizar seu negócio.":"Acesse seu painel empresarial."; $("#authSubmit").textContent=signup?"Criar conta grátis":"Entrar"; $("#toggleAuth").textContent=signup?"Já tenho conta":"Criar conta grátis"; $("#resetPassword").classList.toggle("hidden",signup); $("#authNameWrap").classList.toggle("hidden",!signup); $("#termsWrap").classList.toggle("hidden",!signup); $("#authPassword").setAttribute("autocomplete", signup?"new-password":"current-password"); $("#passwordHelp").textContent=signup?"Crie uma senha com pelo menos 6 caracteres.":"Digite sua senha cadastrada."; setAuthMessage(""); icons();
+  }
+  function setAuthFieldsDisabled(disabled){ ["authName","authEmail","authPassword","authTerms","authSubmit","authGoogle","toggleAuth","resetPassword","closeAuth"].forEach(id=>{ const el=$("#"+id); if(el) el.disabled=disabled; }); }
+  function openAuth(mode="login"){ $("#authModal").classList.add("open"); $("#authModal").setAttribute("aria-hidden","false"); updateAuthUI(mode); setTimeout(()=> (mode==="signup"?$("#authName"):$("#authEmail"))?.focus(),60); }
   function closeAuth(){ $("#authModal").classList.remove("open"); $("#authModal").setAttribute("aria-hidden","true"); }
-  function loginLocal(mode){
-    const email=$("#authEmail").value.trim()||"demo@ceodebolso.ai"; const pass=$("#authPassword").value.trim();
-    if(email && pass.length && pass.length<6){ toast("A senha precisa ter pelo menos 6 caracteres."); return; }
-    state.user={email,name:email.split("@")[0]||"Usuário",mode}; saveState(); closeAuth(); showApp(); toast(mode==="signup"?"Conta criada em conta ativa.":"Login feito em conta ativa.");
+  async function handleAuthSubmit(mode=authMode()){
+    const signup=mode==="signup", name=$("#authName")?.value.trim()||"", email=$("#authEmail")?.value.trim().toLowerCase()||"", pass=$("#authPassword")?.value||"", accepted=$("#authTerms")?.checked;
+    setAuthMessage("");
+    if(signup && name.length<2){ setAuthMessage("Informe seu nome para criar a conta.","error"); $("#authName")?.focus(); return; }
+    if(!validateEmail(email)){ setAuthMessage("Informe um e-mail válido.","error"); $("#authEmail")?.focus(); return; }
+    if(pass.length<6){ setAuthMessage("A senha precisa ter pelo menos 6 caracteres.","error"); $("#authPassword")?.focus(); return; }
+    if(signup && !accepted){ setAuthMessage("Você precisa aceitar os Termos e a Política de Privacidade.","error"); $("#authTerms")?.focus(); return; }
+    const button=$("#authSubmit"); setLoading(button,true,signup?"Criando conta...":"Entrando..."); setAuthFieldsDisabled(true); setAuthMessage(signup?"Criando sua conta...":"Entrando na sua conta...","info");
+    try{ const user=signup?await signUpEmail(email,pass,name):await signInEmail(email,pass); await loadCloudData(user); closeAuth(); showApp(); toast(signup?"Conta criada com sucesso.":"Login realizado com sucesso."); }
+    catch(error){ setAuthMessage(mapAuthError(error),"error"); }
+    finally{ setAuthFieldsDisabled(false); setLoading(button,false); }
   }
+  async function handleGoogle(){ const button=$("#authGoogle"); setLoading(button,true,"Abrindo..."); setAuthFieldsDisabled(true); setAuthMessage("Abrindo entrada com Google...","info"); try{ const user=await signInGoogle(); await loadCloudData(user); closeAuth(); showApp(); toast("Entrada com Google realizada."); } catch(error){ setAuthMessage(mapAuthError(error),"error"); } finally{ setAuthFieldsDisabled(false); setLoading(button,false); } }
+  async function handleResetPassword(){ const email=$("#authEmail").value.trim().toLowerCase(); if(!validateEmail(email)){ setAuthMessage("Informe seu e-mail para recuperar a senha.","error"); $("#authEmail")?.focus(); return; } setAuthFieldsDisabled(true); setAuthMessage("Enviando instruções de recuperação...","info"); try{ await resetPassword(email); setAuthMessage("Enviamos as instruções de recuperação para seu e-mail.","success"); }catch(error){ setAuthMessage(mapAuthError(error),"error"); }finally{ setAuthFieldsDisabled(false); } }
 
-  function showLegal(type){
-    const privacy = `<span class="eyebrow">Privacidade</span><h1>Política de privacidade</h1><p>Coletamos dados de conta, dados do negócio, histórico de perguntas e status de assinatura para operar o CEO de Bolso AI.</p><p>Nesta versão em arquivo único, os dados podem ficar no localStorage do navegador. Se você conectar Firebase e APIs, os dados podem ser salvos em nuvem por usuário autenticado.</p><p>Pagamentos são processados por provedor externo quando a API estiver configurada. Não armazenamos dados completos de cartão.</p>`;
-    const terms = `<span class="eyebrow">Termos</span><h1>Termos de uso</h1><p>O CEO de Bolso AI oferece apoio gerencial, financeiro e de marketing com IA. As recomendações não substituem contabilidade, consultoria jurídica ou auditoria profissional.</p><p>Usuários gratuitos possuem limite de 5 usos de IA por mês. Recursos premium dependem de assinatura ativa.</p><p>O usuário é responsável por revisar as recomendações antes de aplicar qualquer decisão no negócio.</p>`;
-    $("#landing").classList.add("hidden"); $("#app").classList.add("hidden"); $("#legal").classList.remove("hidden"); $("#legalContent").innerHTML=type==="privacy"?privacy:terms; window.scrollTo(0,0);
-  }
+  function showLegal(type){ const privacy=`<span class="eyebrow">Privacidade</span><h1>Política de privacidade</h1><p>Coletamos dados de conta, dados do negócio, histórico de perguntas e status de assinatura para operar o CEO de Bolso AI.</p><p>Os dados ficam vinculados à sua conta e são usados para personalizar diagnósticos, planos e relatórios.</p><p>Pagamentos são processados por provedor externo quando a assinatura estiver ativa. Não armazenamos dados completos de cartão.</p>`; const terms=`<span class="eyebrow">Termos</span><h1>Termos de uso</h1><p>O CEO de Bolso AI oferece apoio gerencial, financeiro e de marketing com IA. As recomendações não substituem contabilidade, consultoria jurídica ou auditoria profissional.</p><p>Usuários gratuitos possuem limite de 5 usos de IA por mês. Recursos premium dependem de assinatura ativa.</p><p>O usuário é responsável por revisar as recomendações antes de aplicar qualquer decisão no negócio.</p>`; $("#landing").classList.add("hidden"); $("#app").classList.add("hidden"); $("#legal").classList.remove("hidden"); $("#legalContent").innerHTML=type==="privacy"?privacy:terms; window.scrollTo(0,0); }
 
   function init(){
-
+    icons(); setTimeout(icons,500);
     window.addEventListener("scroll",()=>{$(".site-header")?.classList.toggle("scrolled",window.scrollY>20)});
-    document.addEventListener("click",(e)=>{ const b=e.target.closest("[data-demo-q]"); if(b){ $("#demoQuestion").value=b.dataset.demoQ; $("#askDemo").click(); }});
-    document.addEventListener("DOMContentLoaded",()=>{});
-    icons();
-    setTimeout(icons,500);
     const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}}),{threshold:.12}); $$(".reveal").forEach(e=>obs.observe(e));
-
     $$("[data-open-auth]").forEach(b=>b.addEventListener("click",()=>openAuth(b.dataset.openAuth)));
     $("#closeAuth").addEventListener("click",closeAuth); $("#authModal").addEventListener("click",e=>{if(e.target.id==="authModal")closeAuth()});
-    $("#toggleAuth").addEventListener("click",()=>openAuth($("#authModal").dataset.mode==="signup"?"login":"signup"));
-    $("#authSubmit").addEventListener("click",()=>loginLocal($("#authModal").dataset.mode||"login"));
-    $("#authGoogle").addEventListener("click",()=>{ state.user={email:"google-demo@ceodebolso.ai",name:"Google Demo",mode:"google"}; saveState(); closeAuth(); showApp(); toast("Google em conta ativa. Configure Firebase para login real."); });
-    $("#resetPassword").addEventListener("click",()=>toast("Recuperação de senha precisa de Firebase. No conta ativa, crie uma nova conta."));
-    $("#openDemo").addEventListener("click",()=>{ if(!state.user){state.user={email:"demo@ceodebolso.ai",name:"Demo",mode:"demo"};saveState()} showApp(); });
-    $("#premiumLanding").addEventListener("click",()=>{ if(!state.user){openAuth("signup")} else {showApp();setView("premium")} });
+    $("#toggleAuth").addEventListener("click",()=>openAuth(authMode()==="signup"?"login":"signup"));
+    $("#authSubmit").addEventListener("click",()=>handleAuthSubmit(authMode()));
+    $("#authGoogle").addEventListener("click",handleGoogle);
+    $("#resetPassword").addEventListener("click",handleResetPassword);
+    $("#togglePassword").addEventListener("click",()=>{ const input=$("#authPassword"), showing=input.type==="text"; input.type=showing?"password":"text"; $("#togglePassword").setAttribute("aria-label",showing?"Mostrar senha":"Ocultar senha"); $("#togglePassword").innerHTML=showing?'<i data-lucide="eye"></i>':'<i data-lucide="eye-off"></i>'; icons(); });
+    ["authName","authEmail","authPassword"].forEach(id=>{$("#"+id)?.addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); handleAuthSubmit(authMode()); } });});
+    document.addEventListener("click",e=>{ const b=e.target.closest("[data-demo-q]"); if(b){ $("#demoQuestion").value=b.dataset.demoQ; $("#askDemo").click(); }});
+    $("#openDemo").addEventListener("click",()=>{ showApp(); });
+    $("#premiumLanding").addEventListener("click",()=>{ if(!auth.currentUser){openAuth("signup")} else {showApp();setView("premium")} });
     $("#backLanding").addEventListener("click",showLanding);
-    $("#logoutBtn").addEventListener("click",()=>{ state.user=null; saveState(); showLanding(); toast("Você saiu."); });
+    $("#logoutBtn").addEventListener("click",async()=>{ try{ if(auth.currentUser) await signOut(auth); }catch{} state.user=null; saveState(); showLanding(); toast("Você saiu."); });
     $$("[data-view]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
     $$("[data-view-jump]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.viewJump)));
-    $("#quickSave").addEventListener("click",()=>{ state.business=collectForm(); saveState(); renderAll(); toast("Dados salvos."); });
-    $("#businessForm").addEventListener("submit",e=>{ e.preventDefault(); state.business=collectForm(); saveState(); renderAll(); setView("dashboard"); toast("Negócio salvo."); });
-
-    $("#askDemo").addEventListener("click",async()=>{ const q=$("#demoQuestion").value.trim()||"Como aumentar meu faturamento?"; const btn=$("#askDemo"); setLoading(btn,true,"Analisando..."); try{ const data=localAI("chat",{question:q}); $("#demoAnswer").textContent=data.answer; } finally {setLoading(btn,false)}});
-    $("#sendChat").addEventListener("click",async()=>{ const q=$("#chatInput").value.trim(); if(!q)return; const list=$("#chatList"); list.insertAdjacentHTML("beforeend",`<div class="chat-message user">${escapeHtml(q)}</div>`); $("#chatInput").value=""; const btn=$("#sendChat"); setLoading(btn,true,"Pensando..."); try{ const d=await callAI("chat",{question:q}); list.insertAdjacentHTML("beforeend",`<div class="chat-message ai">${escapeHtml(d.answer)}</div>`); } catch(e){ list.insertAdjacentHTML("beforeend",`<div class="chat-message ai">${escapeHtml(e.message)}</div>`); } finally{ setLoading(btn,false); list.scrollTop=list.scrollHeight; }});
+    $("#quickSave").addEventListener("click",async()=>{ await saveBusinessEverywhere(collectForm()); toast("Dados salvos."); });
+    $("#businessForm").addEventListener("submit",async e=>{ e.preventDefault(); await saveBusinessEverywhere(collectForm()); setView("dashboard"); toast("Negócio salvo e sincronizado."); });
+    $("#askDemo").addEventListener("click",async()=>{ const q=$("#demoQuestion").value.trim()||"Como aumentar meu faturamento?"; const btn=$("#askDemo"); setLoading(btn,true,"Analisando..."); try{ $("#demoAnswer").textContent=localAI("chat",{question:q}).answer; } finally{ setLoading(btn,false); }});
+    $("#sendChat").addEventListener("click",async()=>{ const q=$("#chatInput").value.trim(); if(!q)return; const list=$("#chatList"); list.insertAdjacentHTML("beforeend",`<div class="chat-message user">${escapeHtml(q)}</div>`); $("#chatInput").value=""; const btn=$("#sendChat"); setLoading(btn,true,"Pensando..."); try{ const d=await callAI("chat",{question:q}); list.insertAdjacentHTML("beforeend",`<div class="chat-message ai">${escapeHtml(d.answer)}</div>`); }catch(e){ list.insertAdjacentHTML("beforeend",`<div class="chat-message ai">${escapeHtml(e.message)}</div>`); }finally{ setLoading(btn,false); list.scrollTop=list.scrollHeight; }});
     $("#chatInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("#sendChat").click()});
     $("#generateDiagnosis").addEventListener("click",async()=>{ const btn=$("#generateDiagnosis"); setLoading(btn,true,"Gerando..."); try{ renderDiagnosis(await callAI("diagnosis")); renderDashboard(); }catch(e){toast(e.message)} finally{setLoading(btn,false)}});
-    $$("[data-plan]").forEach(b=>b.addEventListener("click",async()=>{ const btn=b; setLoading(btn,true,"Gerando..."); try{ renderPlan(await callAI("plan",{horizon:b.dataset.plan})); }catch(e){toast(e.message)} finally{setLoading(btn,false)} }));
+    $$("[data-plan]").forEach(b=>b.addEventListener("click",async()=>{ setLoading(b,true,"Gerando..."); try{ renderPlan(await callAI("plan",{horizon:b.dataset.plan})); }catch(e){toast(e.message)} finally{setLoading(b,false)} }));
     $("#generateMarketing").addEventListener("click",async()=>{ const btn=$("#generateMarketing"); setLoading(btn,true,"Criando..."); try{ renderMarketing(await callAI("marketing")); }catch(e){toast(e.message)} finally{setLoading(btn,false)}});
     $("#exportPdf").addEventListener("click",()=>{ if(!state.business){toast("Cadastre o negócio antes.");setView("business");return} buildReport(); setTimeout(()=>window.print(),250); });
     $("#upgradeTop").addEventListener("click",()=>setView("premium"));
-    $("#localPremium").addEventListener("click",()=>{state.premium=true;saveState();renderUsage();toast("Premium liberado nesta conta.");});
-    $("#startPayment").addEventListener("click",async()=>{ const btn=$("#startPayment"); setLoading(btn,true,"Abrindo..."); try{ const res=await fetch("/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:state.user?.email})}); if(res.ok){const j=await res.json(); if(j.init_point){location.href=j.init_point;return}} throw new Error("A assinatura online ainda está sendo finalizada. Entre em contato para liberar o Premium."); }catch(e){toast(e.message)} finally{setLoading(btn,false)}});
+    $("#localPremium").addEventListener("click",async()=>{ state.premium=true; saveState(); renderUsage(); try{ if(auth.currentUser) await saveProfile({premium:true}); }catch{} toast("Premium liberado nesta conta."); });
+    $("#startPayment").addEventListener("click",()=>toast("A assinatura online será ativada em breve."));
     $$("[data-legal]").forEach(b=>b.addEventListener("click",()=>showLegal(b.dataset.legal))); $("#closeLegal").addEventListener("click",showLanding);
 
-    if(state.user) renderAll();
-    fillForm();
+    onAuthStateChanged(auth, async (user)=>{ if(user){ await loadCloudData(user); } else { if(state.user?.mode==="firebase"){ state.user=null; saveState(); renderAll(); } } });
+    if(state.user) renderAll(); fillForm();
   }
   init();
-})();
 </script>
 </body>
 </html>
