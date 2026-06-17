@@ -1,373 +1,562 @@
-(function () {
-  const $ = (selector, scope = document) => scope.querySelector(selector);
-  const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
-  const page = document.body.dataset.page;
-  const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+const $ = (selector, scope = document) => scope.querySelector(selector);
+const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
-  const appState = {
-    user: null,
-    profile: null,
-    business: null,
-    lastDiagnosis: null
+const BRL = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+  maximumFractionDigits: 0
+});
+
+function formatCurrency(value) {
+  return BRL.format(Number(value || 0));
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function businessPayload() {
+  return {
+    revenue: Number($("#bizRevenue")?.value || 42000),
+    expenses: Number($("#bizExpenses")?.value || 25800),
+    customers: Number($("#bizCustomers")?.value || 156),
+    goal: Number($("#bizGoal")?.value || 52000),
+    segment: $("#marketingSegment")?.value || "servicos",
+    name: "Empresa demo"
   };
+}
 
-  function refreshIcons() {
-    if (window.lucide) window.lucide.createIcons();
+async function api(path, body) {
+  const response = await fetch(path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(message || "Erro na requisicao");
   }
 
-  function toast(message) {
-    const host = $("#toastHost");
-    if (!host) return;
-    const item = document.createElement("div");
-    item.className = "toast";
-    item.textContent = message;
-    host.appendChild(item);
-    setTimeout(() => item.remove(), 5200);
-  }
+  return response.json();
+}
 
-  function setLoading(button, loading, text) {
-    if (!button) return;
-    if (loading) {
-      button.dataset.oldText = button.textContent;
-      button.disabled = true;
-      button.textContent = text || "Carregando...";
-    } else {
-      button.disabled = false;
-      if (button.dataset.oldText) button.textContent = button.dataset.oldText;
-      refreshIcons();
-    }
-  }
+function setLoading(element, isLoading) {
+  if (!element) return;
+  element.classList.toggle("loading", isLoading);
+  element.disabled = isLoading;
+}
 
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+function refreshIcons() {
+  if (window.lucide) {
+    window.lucide.createIcons();
   }
+}
 
-  function asNumber(value) {
-    const parsed = Number(value);
-    return Number.isFinite(parsed) ? parsed : 0;
-  }
-
-  function normalizeBusiness(raw = {}) {
-    const revenue = asNumber(raw.revenue);
-    const expenses = asNumber(raw.expenses);
-    const customers = asNumber(raw.customers);
-    const goal = asNumber(raw.goal);
-    const profit = revenue - expenses;
-    const margin = revenue > 0 ? Math.round((profit / revenue) * 100) : 0;
-    const ticket = customers > 0 ? Math.round(revenue / customers) : 0;
-    return {
-      name: raw.name || "Negocio sem nome",
-      type: raw.type || "Servicos",
-      location: raw.location || "Brasil",
-      challenge: raw.challenge || "Crescer com mais previsibilidade",
-      mainGoal: raw.mainGoal || "Aumentar faturamento",
-      revenue,
-      expenses,
-      customers,
-      goal,
-      profit,
-      margin,
-      ticket,
-      goalProgress: goal > 0 ? Math.min(140, Math.round((revenue / goal) * 100)) : 0
-    };
-  }
-
-  function clientScore(business) {
-    const marginScore = Math.max(0, Math.min(34, business.margin * 0.9));
-    const goalScore = Math.max(0, Math.min(28, business.goalProgress * 0.26));
-    const customerScore = Math.max(0, Math.min(18, business.customers / 5));
-    const dataScore = business.revenue && business.expenses && business.goal ? 12 : 4;
-    const focusScore = business.challenge ? 8 : 3;
-    return Math.max(18, Math.min(98, Math.round(marginScore + goalScore + customerScore + dataScore + focusScore)));
-  }
-
-  function clientAlerts(business) {
-    const alerts = [];
-    if (business.goalProgress < 75) alerts.push({ level: "critical", title: "Meta mensal em risco", text: `Progresso atual: ${business.goalProgress}%. Reforce oferta e recompra.` });
-    if (business.margin < 20) alerts.push({ level: "warning", title: "Margem pressionada", text: `Margem de ${business.margin}%. Revise custos e precificacao.` });
-    alerts.push({ level: "success", title: "Proxima acao", text: "Use a base de clientes para uma campanha de recompra esta semana." });
-    return alerts;
-  }
-
-  function currentMonthUsage() {
-    const usage = appState.profile?.usage || {};
-    return Number(usage[window.CEOFirebase.monthKey()] || 0);
-  }
-
-  function isPremium() {
-    return Boolean(appState.profile?.premium);
-  }
-
-  function canUseAI() {
-    return isPremium() || currentMonthUsage() < 5;
-  }
-
-  function renderUsage() {
-    const status = $("#usageStatus");
-    const premium = $("#premiumStatus");
-    if (!status || !premium) return;
-    if (isPremium()) {
-      status.textContent = "IA ilimitada";
-      premium.textContent = "Premium";
-      premium.classList.remove("free");
-      return;
-    }
-    status.textContent = `${currentMonthUsage()}/5 usos IA`;
-    premium.textContent = "Gratuito";
-    premium.classList.add("free");
-  }
-
-  function renderDashboard() {
-    const business = normalizeBusiness(appState.business || {});
-    const score = appState.business ? clientScore(business) : 0;
-    $("#businessTitle").textContent = appState.business ? `${business.name} - ${business.type}` : "Cadastre seu negocio";
-    $("#monthSummary").textContent = appState.business
-      ? `Resumo do mes: receita de ${money.format(business.revenue)}, lucro de ${money.format(business.profit)}, margem de ${business.margin}% e meta em ${business.goalProgress}%.`
-      : "Preencha seus dados para receber analises reais.";
-    $("#dashRevenue").textContent = money.format(business.revenue);
-    $("#dashExpenses").textContent = money.format(business.expenses);
-    $("#dashProfit").textContent = money.format(business.profit);
-    $("#dashScore").textContent = `${score}/100`;
-    $("#dashCustomers").textContent = business.customers;
-    $("#dashTicket").textContent = money.format(business.ticket);
-    $("#dashGoal").textContent = money.format(business.goal);
-    $("#dashProgress").textContent = `${business.goalProgress}%`;
-    const alerts = $("#alertList");
-    alerts.innerHTML = clientAlerts(business)
-      .map((alert) => `<article class="alert-item ${alert.level}"><strong>${escapeHtml(alert.title)}</strong><p class="muted">${escapeHtml(alert.text)}</p></article>`)
-      .join("");
-    renderUsage();
-  }
-
-  function fillBusinessForm() {
-    const form = $("#businessForm");
-    if (!form) return;
-    const business = appState.business || {
-      name: "",
-      type: "",
-      location: "",
-      revenue: 42000,
-      expenses: 25800,
-      customers: 156,
-      goal: 52000,
-      challenge: "Conseguir mais clientes",
-      mainGoal: "Crescer mantendo lucro"
-    };
-    Object.entries(business).forEach(([key, value]) => {
-      const field = form.elements.namedItem(key);
-      if (field) field.value = value;
-    });
-  }
-
-  function collectBusinessForm() {
-    const form = $("#businessForm");
-    return {
-      name: form.elements.namedItem("name").value.trim(),
-      type: form.elements.namedItem("type").value.trim(),
-      location: form.elements.namedItem("location").value.trim(),
-      revenue: asNumber(form.elements.namedItem("revenue").value),
-      expenses: asNumber(form.elements.namedItem("expenses").value),
-      customers: asNumber(form.elements.namedItem("customers").value),
-      goal: asNumber(form.elements.namedItem("goal").value),
-      challenge: form.elements.namedItem("challenge").value.trim(),
-      mainGoal: form.elements.namedItem("mainGoal").value.trim()
-    };
-  }
-
-  function setView(view) {
-    $$(".view").forEach((item) => item.classList.toggle("active", item.id === `view-${view}`));
-    $$("[data-view]").forEach((button) => button.classList.toggle("active", button.dataset.view === view));
-    const titles = {
-      dashboard: ["Dashboard executivo", "Indicadores, alertas e resumo do mes."],
-      business: ["Cadastro do negocio", "Dados que alimentam o consultor, diagnostico e relatorios."],
-      chat: ["Consultor IA", "Pergunte sobre financas, marketing, vendas e crescimento."],
-      diagnosis: ["Diagnostico empresarial", "Nota, riscos, oportunidades e prioridade da semana."],
-      plans: ["Planos de acao", "Tarefas para 7, 30 e 90 dias."],
-      marketing: ["Marketing IA", "Conteudo, legendas, anuncios e calendario semanal."],
-      reports: ["Relatorios PDF", "Documento executivo premium."],
-      premium: ["Premium", "IA ilimitada e recursos completos."]
-    };
-    $("#appHeading").textContent = titles[view]?.[0] || "CEO de Bolso AI";
-    $("#appSubheading").textContent = titles[view]?.[1] || "";
-  }
-
-  async function authHeaders() {
-    const token = await window.CEOFirebase.getToken();
-    return token ? { Authorization: `Bearer ${token}` } : {};
-  }
-
-  async function callIA(action, extra = {}) {
-    if (!appState.business) {
-      toast("Cadastre os dados do negocio antes de usar a IA.");
-      setView("business");
-      throw new Error("Negocio nao cadastrado.");
-    }
-    if (!canUseAI()) {
-      showPremiumRequired();
-      throw new Error("Limite gratuito atingido.");
-    }
-    const user = window.CEOFirebase.currentUser();
-    const response = await fetch("/api/ia", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(await authHeaders())
-      },
-      body: JSON.stringify({
-        action,
-        uid: user?.uid,
-        email: user?.email,
-        premium: isPremium(),
-        business: appState.business,
-        ...extra
-      })
-    });
-    const json = await response.json();
-    if (!response.ok) {
-      if (json.premiumRequired) showPremiumRequired();
-      throw new Error(json.error || "Falha na IA.");
-    }
-    if (json.usage?.demo && !isPremium()) {
-      await window.CEOFirebase.incrementUsage();
-      appState.profile = await window.CEOFirebase.getProfile();
-      await window.CEOFirebase.saveHistory({
-        action,
-        question: extra.question || "",
-        answer: json.data?.answer || json.data?.aiText || json.data?.executiveSummary || ""
+function initReveal() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
       });
+    },
+    { threshold: 0.16 }
+  );
+
+  $$(".reveal").forEach((element) => observer.observe(element));
+}
+
+function initHeroCanvas() {
+  const canvas = $("#heroCanvas");
+  if (!canvas) return;
+
+  const context = canvas.getContext("2d");
+  const pointer = { x: 0.62, y: 0.38 };
+  const particles = Array.from({ length: 80 }, (_, index) => ({
+    seed: index * 0.017,
+    x: Math.random(),
+    y: Math.random(),
+    radius: 1 + Math.random() * 2.4,
+    speed: 0.00035 + Math.random() * 0.0007,
+    hue: Math.random() > 0.45 ? "34, 211, 238" : "168, 85, 247"
+  }));
+
+  function resize() {
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(canvas.clientWidth * ratio);
+    canvas.height = Math.floor(canvas.clientHeight * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+  }
+
+  function draw(time) {
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    context.clearRect(0, 0, width, height);
+
+    const gradient = context.createRadialGradient(
+      width * pointer.x,
+      height * pointer.y,
+      20,
+      width * pointer.x,
+      height * pointer.y,
+      width * 0.66
+    );
+    gradient.addColorStop(0, "rgba(34, 211, 238, 0.16)");
+    gradient.addColorStop(0.48, "rgba(59, 130, 246, 0.08)");
+    gradient.addColorStop(1, "rgba(7, 10, 19, 0)");
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, width, height);
+
+    particles.forEach((particle, index) => {
+      const drift = Math.sin(time * particle.speed + particle.seed * 100) * 0.06;
+      const x = ((particle.x + drift + time * particle.speed * 0.06) % 1) * width;
+      const y = ((particle.y + Math.cos(time * particle.speed + index) * 0.04) % 1) * height;
+
+      context.beginPath();
+      context.arc(x, y, particle.radius, 0, Math.PI * 2);
+      context.fillStyle = `rgba(${particle.hue}, 0.52)`;
+      context.fill();
+
+      if (index % 4 === 0) {
+        const next = particles[(index + 9) % particles.length];
+        const nx = next.x * width;
+        const ny = next.y * height;
+        const distance = Math.hypot(nx - x, ny - y);
+        if (distance < 180) {
+          context.beginPath();
+          context.moveTo(x, y);
+          context.lineTo(nx, ny);
+          context.strokeStyle = `rgba(${particle.hue}, ${0.12 - distance / 1800})`;
+          context.lineWidth = 1;
+          context.stroke();
+        }
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener("resize", resize);
+  window.addEventListener("pointermove", (event) => {
+    pointer.x = event.clientX / window.innerWidth;
+    pointer.y = event.clientY / Math.max(window.innerHeight, 1);
+  });
+  resize();
+  requestAnimationFrame(draw);
+}
+
+function initHeroMetrics() {
+  const values = [
+    { revenue: 84200, profit: 27400, customers: 312, goal: 82 },
+    { revenue: 88100, profit: 29100, customers: 329, goal: 86 },
+    { revenue: 91600, profit: 30800, customers: 341, goal: 91 }
+  ];
+  let index = 0;
+
+  setInterval(() => {
+    index = (index + 1) % values.length;
+    const current = values[index];
+    const counters = $$("[data-hero-counter]");
+    counters[0].textContent = `${formatCurrency(current.revenue / 1000).replace("R$", "R$ ")}k`.replace(",0", "");
+    counters[1].textContent = `${formatCurrency(current.profit / 1000).replace("R$", "R$ ")}k`.replace(",0", "");
+    counters[2].textContent = String(current.customers);
+    const ring = $(".goal-ring");
+    if (ring) {
+      ring.style.setProperty("--progress", current.goal);
+      $("strong", ring).textContent = `${current.goal}%`;
     }
-    renderUsage();
-    return json.data;
+  }, 3600);
+}
+
+function drawCashflow() {
+  const canvas = $("#cashflowChart");
+  if (!canvas) return;
+
+  const context = canvas.getContext("2d");
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  canvas.width = Math.floor(width * ratio);
+  canvas.height = Math.floor(height * ratio);
+  context.setTransform(ratio, 0, 0, ratio, 0, 0);
+  context.clearRect(0, 0, width, height);
+
+  const revenue = [26, 32, 30, 37, 42, 48].map((value) => value + Math.random() * 3);
+  const expenses = [18, 20, 21, 23, 25, 27].map((value) => value + Math.random() * 2);
+  const max = 56;
+  const padding = 28;
+  const step = (width - padding * 2) / (revenue.length - 1);
+
+  context.strokeStyle = "rgba(255,255,255,0.08)";
+  context.lineWidth = 1;
+  for (let y = padding; y < height - padding; y += 38) {
+    context.beginPath();
+    context.moveTo(padding, y);
+    context.lineTo(width - padding, y);
+    context.stroke();
   }
 
-  function showPremiumRequired() {
-    toast("Este recurso exige Premium ou o limite gratuito foi atingido.");
-    setView("premium");
+  function line(values, color) {
+    context.beginPath();
+    values.forEach((value, index) => {
+      const x = padding + index * step;
+      const y = height - padding - (value / max) * (height - padding * 2);
+      if (index === 0) context.moveTo(x, y);
+      else context.lineTo(x, y);
+    });
+    context.strokeStyle = color;
+    context.lineWidth = 3;
+    context.stroke();
+    values.forEach((value, index) => {
+      const x = padding + index * step;
+      const y = height - padding - (value / max) * (height - padding * 2);
+      context.beginPath();
+      context.arc(x, y, 4, 0, Math.PI * 2);
+      context.fillStyle = color;
+      context.fill();
+    });
   }
 
-  function appendChat(text, type) {
-    const list = $("#chatList");
-    const item = document.createElement("div");
-    item.className = `chat-message ${type}`;
-    item.textContent = text;
-    list.appendChild(item);
-    list.scrollTop = list.scrollHeight;
-  }
+  line(expenses, "rgba(251, 113, 133, 0.85)");
+  line(revenue, "rgba(34, 211, 238, 0.95)");
+}
 
-  async function sendChat() {
-    const input = $("#chatInput");
+function initDashboard() {
+  drawCashflow();
+  window.addEventListener("resize", drawCashflow);
+  $("#refreshDashboard")?.addEventListener("click", () => {
+    const revenue = 40000 + Math.round(Math.random() * 12000);
+    const expenses = 23000 + Math.round(Math.random() * 6000);
+    const profit = revenue - expenses;
+    const goal = Math.round((revenue / 52000) * 100);
+    $("#metricRevenue").textContent = formatCurrency(revenue);
+    $("#metricExpenses").textContent = formatCurrency(expenses);
+    $("#metricProfit").textContent = formatCurrency(profit);
+    $("#metricGoal").textContent = `${goal}%`;
+    drawCashflow();
+  });
+}
+
+async function askQuestion(question) {
+  const data = await api("/api/ai/consultor", {
+    question,
+    business: businessPayload()
+  });
+  return data.answer;
+}
+
+function initDemo() {
+  const input = $("#demoQuestion");
+  const answer = $("#demoAnswer p");
+  const button = $("#askDemo");
+
+  $$(".example-row button").forEach((example) => {
+    example.addEventListener("click", () => {
+      input.value = example.dataset.question;
+      button.click();
+    });
+  });
+
+  button?.addEventListener("click", async () => {
     const question = input.value.trim();
     if (!question) return;
-    appendChat(question, "user");
+    setLoading(button, true);
+    answer.textContent = "Analisando contexto financeiro, meta e prioridades...";
+    try {
+      answer.textContent = await askQuestion(question);
+    } catch (error) {
+      answer.textContent = "Nao consegui conectar agora. Priorize receita recorrente, reduza custos sem retorno e transforme clientes atuais em recompra nesta semana.";
+    } finally {
+      setLoading(button, false);
+    }
+  });
+}
+
+function renderList(items) {
+  return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+}
+
+function renderDiagnosis(data) {
+  const element = $("#diagnosisResult");
+  if (!element) return;
+
+  element.innerHTML = `
+    <div class="score-card">
+      <div class="score-orb" style="--score: ${data.score}">
+        <strong>${data.score}</strong>
+      </div>
+      <div>
+        <span class="eyebrow">${escapeHtml(data.status)}</span>
+        <h3>Nota da empresa</h3>
+        <p>Receita de ${formatCurrency(data.business.revenue)}, lucro de ${formatCurrency(data.business.profit)} e margem de ${data.business.margin}%.</p>
+      </div>
+    </div>
+    <div class="result-columns">
+      <div class="result-box">
+        <h4>Pontos fortes</h4>
+        ${renderList(data.strengths)}
+      </div>
+      <div class="result-box">
+        <h4>Pontos fracos</h4>
+        ${renderList(data.weaknesses)}
+      </div>
+      <div class="result-box">
+        <h4>Plano de acao</h4>
+        ${renderList(data.actionPlan)}
+      </div>
+    </div>
+  `;
+}
+
+async function runDiagnosis() {
+  const button = $("#runDiagnosis");
+  setLoading(button, true);
+  try {
+    renderDiagnosis(await api("/api/diagnostico", businessPayload()));
+  } finally {
+    setLoading(button, false);
+  }
+}
+
+function renderPlan(data) {
+  const element = $("#planResult");
+  if (!element) return;
+  element.innerHTML = `
+    <div class="result-box">
+      <h4>Objetivo do ciclo</h4>
+      <p>${escapeHtml(data.objective)}</p>
+    </div>
+    ${data.tasks
+      .map(
+        ([period, task]) => `
+          <div class="timeline-item">
+            <strong>${escapeHtml(period)}</strong>
+            <p>${escapeHtml(task)}</p>
+          </div>
+        `
+      )
+      .join("")}
+  `;
+}
+
+async function generatePlan(horizon = "30") {
+  renderPlan(await api("/api/action-plan", { ...businessPayload(), horizon }));
+}
+
+function initPlanner() {
+  $$(".segmented button").forEach((button) => {
+    button.addEventListener("click", () => {
+      $$(".segmented button").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      generatePlan(button.dataset.horizon);
+    });
+  });
+}
+
+function renderMarketing(data) {
+  const element = $("#marketingResult");
+  if (!element) return;
+  element.innerHTML = data.calendar
+    .map(
+      (item) => `
+        <article class="marketing-card">
+          <span>${escapeHtml(item.day)} - ${escapeHtml(item.format)}</span>
+          <h4>${escapeHtml(item.theme)}</h4>
+          <p>${escapeHtml(item.caption)}</p>
+          <p><strong>CTA:</strong> ${escapeHtml(item.cta)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+async function generateMarketing() {
+  const button = $("#generateMarketing");
+  setLoading(button, true);
+  try {
+    renderMarketing(
+      await api("/api/marketing", {
+        segment: $("#marketingSegment").value,
+        objective: $("#marketingObjective").value
+      })
+    );
+  } finally {
+    setLoading(button, false);
+  }
+}
+
+function renderFinance(data) {
+  const element = $("#financeResult");
+  if (!element) return;
+  const max = Math.max(...data.categories.map((item) => item.amount));
+  element.innerHTML = `
+    <div class="finance-card">
+      <h4>Distribuicao de gastos</h4>
+      <div class="finance-bars">
+        ${data.categories
+          .map(
+            (item) => `
+              <div class="finance-bar">
+                <span>${escapeHtml(item.label)} - ${formatCurrency(item.amount)}</span>
+                <div><i style="--w: ${(item.amount / max) * 100}%"></i></div>
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+    <div class="finance-card">
+      <h4>Risco financeiro: ${escapeHtml(data.risk)}</h4>
+      <p>Margem atual de ${data.business.margin}% e lucro de ${formatCurrency(data.business.profit)}.</p>
+      <h4>Gastos excessivos</h4>
+      ${renderList(data.excessiveCosts)}
+      <h4>Oportunidades</h4>
+      ${renderList(data.opportunities)}
+    </div>
+  `;
+}
+
+async function runFinance() {
+  const button = $("#runFinance");
+  setLoading(button, true);
+  try {
+    renderFinance(await api("/api/financial", businessPayload()));
+  } finally {
+    setLoading(button, false);
+  }
+}
+
+function renderAlerts(data) {
+  const element = $("#alertsResult");
+  if (!element) return;
+  element.innerHTML = data.alerts
+    .map(
+      (alert) => `
+        <article class="alert-item ${escapeHtml(alert.level)}">
+          <span class="alert-dot"></span>
+          <div>
+            <h4>${escapeHtml(alert.title)}</h4>
+            <p>${escapeHtml(alert.text)}</p>
+          </div>
+        </article>
+      `
+    )
+    .join("");
+}
+
+async function runAlerts() {
+  const button = $("#runAlerts");
+  setLoading(button, true);
+  try {
+    renderAlerts(await api("/api/alerts", businessPayload()));
+  } finally {
+    setLoading(button, false);
+  }
+}
+
+function initWorkspaceTabs() {
+  $$(".workspace-nav button").forEach((button) => {
+    button.addEventListener("click", () => {
+      $$(".workspace-nav button").forEach((item) => item.classList.remove("active"));
+      $$(".module-panel").forEach((panel) => panel.classList.remove("active"));
+      button.classList.add("active");
+      $(`#panel-${button.dataset.tab}`)?.classList.add("active");
+    });
+  });
+}
+
+function initChat() {
+  const input = $("#chatQuestion");
+  const button = $("#sendChat");
+  const messages = $("#chatMessages");
+
+  function append(content, type) {
+    const bubble = document.createElement("div");
+    bubble.className = `chat-message ${type}`;
+    bubble.textContent = content;
+    messages.appendChild(bubble);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  button?.addEventListener("click", async () => {
+    const question = input.value.trim();
+    if (!question) return;
+    append(question, "user");
     input.value = "";
-    const button = $("#sendChat");
-    setLoading(button, true, "Pensando...");
+    setLoading(button, true);
     try {
-      const data = await callIA("chat", { question });
-      appendChat(data.answer, "ai");
+      append(await askQuestion(question), "ai");
     } catch (error) {
-      appendChat(error.message, "ai");
+      append("A conexao falhou agora. Sugestao imediata: revise custos recorrentes, crie uma oferta de recompra e acompanhe lucro semanalmente.", "ai");
     } finally {
       setLoading(button, false);
     }
-  }
+  });
 
-  function listBlock(title, items) {
-    return `<article class="result-item"><strong>${escapeHtml(title)}</strong><ul class="check-list">${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></article>`;
-  }
-
-  function renderDiagnosis(data) {
-    appState.lastDiagnosis = data;
-    $("#diagnosisResult").innerHTML = [
-      `<article class="result-item"><strong>Nota geral: ${data.score}/100</strong><p class="muted">${escapeHtml(data.executiveSummary)}</p></article>`,
-      listBlock("Pontos fortes", data.strengths),
-      listBlock("Pontos fracos", data.weaknesses),
-      listBlock("Riscos", data.risks),
-      listBlock("Oportunidades", data.opportunities),
-      listBlock("Plano de acao", data.actionPlan),
-      `<article class="result-item"><strong>Marketing</strong><p class="muted">${escapeHtml(data.marketingRecommendation)}</p></article>`,
-      `<article class="result-item"><strong>Financeiro</strong><p class="muted">${escapeHtml(data.financialRecommendation)}</p></article>`,
-      `<article class="result-item"><strong>Prioridade da semana</strong><p class="muted">${escapeHtml(data.weekPriority)}</p></article>`,
-      data.aiText ? `<article class="result-item"><strong>Analise da IA</strong><p class="muted">${escapeHtml(data.aiText)}</p></article>` : ""
-    ].join("");
-    renderDashboard();
-  }
-
-  async function generateDiagnosis() {
-    const button = $("#generateDiagnosis");
-    setLoading(button, true, "Gerando...");
-    try {
-      renderDiagnosis(await callIA("diagnosis"));
-    } catch (error) {
-      toast(error.message);
-    } finally {
-      setLoading(button, false);
+  input?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      button.click();
     }
-  }
+  });
+}
 
-  function renderPlan(data) {
-    $("#planResult").innerHTML = [
-      `<article class="result-item"><strong>Objetivo</strong><p class="muted">${escapeHtml(data.objective)}</p></article>`,
-      ...data.tasks.map(([period, task]) => `<article class="timeline-item"><strong>${escapeHtml(period)}</strong><p class="muted">${escapeHtml(task)}</p></article>`),
-      data.aiText ? `<article class="result-item"><strong>Orientacao da IA</strong><p class="muted">${escapeHtml(data.aiText)}</p></article>` : ""
-    ].join("");
-  }
+function initAuth() {
+  const status = $("#authStatus");
 
-  async function generatePlan(horizon) {
+  $("#googleLogin")?.addEventListener("click", async () => {
     try {
-      renderPlan(await callIA("plan", { horizon }));
+      const result = await window.CEOFirebase?.signInWithGoogle();
+      if (result?.user) {
+        status.textContent = `Conectado com Google: ${result.user.email}`;
+      } else {
+        status.textContent = "Login demo ativo. Firebase ainda nao foi configurado.";
+      }
     } catch (error) {
-      toast(error.message);
+      status.textContent = "Nao foi possivel autenticar com Google. Verifique a configuracao Firebase.";
     }
-  }
+  });
 
-  function renderMarketing(data) {
-    $("#marketingResult").innerHTML = [
-      `<article class="result-item"><strong>${escapeHtml(data.campaign)}</strong><p class="muted">${escapeHtml(data.adCopy)}</p></article>`,
-      ...data.posts.map((post) => `<article class="result-item"><strong>${escapeHtml(post.day)} - ${escapeHtml(post.format)}</strong><p class="muted">${escapeHtml(post.idea)}</p><p class="muted">${escapeHtml(post.caption)}</p><span class="pill">${escapeHtml(post.cta)}</span></article>`),
-      listBlock("Ideias de promocoes", data.promoIdeas),
-      data.aiText ? `<article class="result-item"><strong>Analise da IA</strong><p class="muted">${escapeHtml(data.aiText)}</p></article>` : ""
-    ].join("");
-  }
-
-  async function generateMarketing() {
-    const button = $("#generateMarketing");
-    setLoading(button, true, "Criando...");
-    try {
-      renderMarketing(await callIA("marketing"));
-    } catch (error) {
-      toast(error.message);
-    } finally {
-      setLoading(button, false);
-    }
-  }
-
-  async function exportPdf() {
-    if (!isPremium()) {
-      showPremiumRequired();
+  $("#emailLogin")?.addEventListener("click", async () => {
+    const email = $("#emailInput").value.trim();
+    const password = $("#passwordInput").value.trim();
+    if (!email || !password) {
+      status.textContent = "Informe email e senha para testar o acesso.";
       return;
     }
-    const button = $("#exportPdf");
-    setLoading(button, true, "Exportando...");
+
     try {
-      const user = window.CEOFirebase.currentUser();
-      const response = await fetch("/api/report", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(await authHeaders())
-        },
-        body: JSON.stringify({ uid: user?.uid, email: user?.email, premium: isPremium(), business: appState.business })
-      });
-      if (!response.ok) {
-        const json = await response.json();
-        throw new Error(json.error || "Nao foi possivel gerar o PDF.");
+      const result = await window.CEOFirebase?.signInWithEmail(email, password);
+      if (result?.user) {
+        status.textContent = `Conectado com email: ${result.user.email}`;
+      } else {
+        localStorage.setItem("ceo-demo-user", email);
+        status.textContent = `Sessao demo ativa para ${email}.`;
       }
+    } catch (error) {
+      status.textContent = "Firebase retornou erro no login. Em modo demo, a sessao local continua ativa.";
+    }
+  });
+}
+
+function initReportDownload() {
+  $("#downloadReport")?.addEventListener("click", async () => {
+    const button = $("#downloadReport");
+    setLoading(button, true);
+    try {
+      const response = await fetch("/api/report.pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(businessPayload())
+      });
+      if (!response.ok) throw new Error("PDF indisponivel");
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -377,215 +566,62 @@
       link.click();
       link.remove();
       URL.revokeObjectURL(url);
-      toast("PDF gerado com sucesso.");
-    } catch (error) {
-      toast(error.message);
     } finally {
       setLoading(button, false);
     }
-  }
-
-  async function startPayment() {
-    const button = $("#startPayment") || $("#upgradeTop");
-    setLoading(button, true, "Abrindo pagamento...");
-    try {
-      const user = window.CEOFirebase.currentUser();
-      const response = await fetch("/api/create-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ uid: user?.uid, email: user?.email })
-      });
-      const json = await response.json();
-      if (!response.ok) throw new Error(json.error || "Falha ao criar pagamento.");
-      if (json.init_point) {
-        window.location.href = json.init_point;
-      } else {
-        throw new Error("Mercado Pago nao retornou link de assinatura.");
-      }
-    } catch (error) {
-      toast(error.message);
-    } finally {
-      setLoading(button, false);
-    }
-  }
-
-  async function loadAppData(user) {
-    appState.user = user;
-    appState.profile = await window.CEOFirebase.getProfile();
-    appState.business = await window.CEOFirebase.getBusiness();
-    renderDashboard();
-    fillBusinessForm();
-    if (!appState.business) $("#onboarding")?.classList.add("open");
-    if (new URLSearchParams(location.search).get("premium") === "pending") {
-      toast("Pagamento iniciado. Assim que o webhook confirmar, seu Premium sera ativado.");
-    }
-  }
-
-  function initAppPage() {
-    const gate = $("#authGate");
-    const shell = $("#appShell");
-    window.CEOFirebase.onAuth(async (user) => {
-      if (!user) {
-        gate.classList.add("open");
-        shell.hidden = true;
-        return;
-      }
-      gate.classList.remove("open");
-      shell.hidden = false;
-      await loadAppData(user);
-      refreshIcons();
-    });
-
-    $("#gateLogin")?.addEventListener("click", async () => authFromGate("login"));
-    $("#gateSignup")?.addEventListener("click", async () => authFromGate("signup"));
-    $("#gateGoogle")?.addEventListener("click", async () => {
-      try {
-        await window.CEOFirebase.signInGoogle();
-        location.reload();
-      } catch (error) {
-        toast(error.message);
-      }
-    });
-    $("#gateReset")?.addEventListener("click", async () => {
-      const email = $("#gateEmail").value.trim();
-      if (!email) return toast("Informe seu e-mail para recuperar a senha.");
-      await window.CEOFirebase.resetPassword(email);
-      toast("Se o e-mail existir, enviaremos instrucoes de recuperacao.");
-    });
-
-    async function authFromGate(mode) {
-      const email = $("#gateEmail").value.trim();
-      const password = $("#gatePassword").value.trim();
-      if (!email || password.length < 6) return toast("Informe e-mail e senha com pelo menos 6 caracteres.");
-      try {
-        if (mode === "signup") await window.CEOFirebase.signUpEmail(email, password);
-        else await window.CEOFirebase.signInEmail(email, password);
-        location.reload();
-      } catch (error) {
-        toast(error.message);
-      }
-    }
-
-    $$("[data-view]").forEach((button) => button.addEventListener("click", () => setView(button.dataset.view)));
-    $("#goBusinessSetup")?.addEventListener("click", () => {
-      $("#onboarding").classList.remove("open");
-      setView("business");
-      fillBusinessForm();
-    });
-    $("#businessForm")?.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      try {
-        appState.business = await window.CEOFirebase.saveBusiness(collectBusinessForm());
-        renderDashboard();
-        $("#onboarding").classList.remove("open");
-        toast("Dados do negocio salvos.");
-        setView("dashboard");
-      } catch (error) {
-        toast(error.message);
-      }
-    });
-    $("#sendChat")?.addEventListener("click", sendChat);
-    $("#chatInput")?.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") sendChat();
-    });
-    $$("#quickQuestions button").forEach((button) => {
-      button.addEventListener("click", () => {
-        $("#chatInput").value = button.textContent.trim();
-        sendChat();
-      });
-    });
-    $("#generateDiagnosis")?.addEventListener("click", generateDiagnosis);
-    $$("[data-plan]").forEach((button) => button.addEventListener("click", () => generatePlan(button.dataset.plan)));
-    $("#generateMarketing")?.addEventListener("click", generateMarketing);
-    $("#exportPdf")?.addEventListener("click", exportPdf);
-    $("#startPayment")?.addEventListener("click", startPayment);
-    $("#upgradeTop")?.addEventListener("click", () => setView("premium"));
-    $("#logoutBtn")?.addEventListener("click", async () => {
-      await window.CEOFirebase.logout();
-      location.href = "/";
-    });
-  }
-
-  function initLandingAuth() {
-    let mode = "login";
-    const modal = $("#authModal");
-    const title = $("#authTitle");
-    const subtitle = $("#authSubtitle");
-    const submit = $("#authSubmit");
-    const toggle = $("#toggleAuth");
-
-    function setMode(next) {
-      mode = next;
-      const signup = mode === "signup";
-      title.textContent = signup ? "Criar conta" : "Entrar";
-      subtitle.textContent = signup ? "Comece gratis em poucos segundos." : "Acesse seu CEO particular.";
-      submit.textContent = signup ? "Criar conta" : "Entrar";
-      toggle.textContent = signup ? "Ja tenho conta" : "Criar conta gratis";
-    }
-
-    $$("[data-open-auth]").forEach((button) => {
-      button.addEventListener("click", () => {
-        setMode(button.dataset.openAuth || "login");
-        modal.classList.add("open");
-      });
-    });
-    $("#closeAuth")?.addEventListener("click", () => modal.classList.remove("open"));
-    toggle?.addEventListener("click", () => setMode(mode === "signup" ? "login" : "signup"));
-    submit?.addEventListener("click", async () => {
-      const email = $("#authEmail").value.trim();
-      const password = $("#authPassword").value.trim();
-      if (!email || password.length < 6) return toast("Informe e-mail e senha com pelo menos 6 caracteres.");
-      setLoading(submit, true);
-      try {
-        if (mode === "signup") await window.CEOFirebase.signUpEmail(email, password);
-        else await window.CEOFirebase.signInEmail(email, password);
-        location.href = "/app.html";
-      } catch (error) {
-        toast(error.message);
-      } finally {
-        setLoading(submit, false);
-      }
-    });
-    $("#authGoogle")?.addEventListener("click", async () => {
-      try {
-        await window.CEOFirebase.signInGoogle();
-        location.href = "/app.html";
-      } catch (error) {
-        toast(error.message);
-      }
-    });
-    $("#resetPassword")?.addEventListener("click", async () => {
-      const email = $("#authEmail").value.trim();
-      if (!email) return toast("Informe seu e-mail para recuperar a senha.");
-      await window.CEOFirebase.resetPassword(email);
-      toast("Se o e-mail existir, enviaremos instrucoes de recuperacao.");
-    });
-  }
-
-  function initReveal() {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      }),
-      { threshold: 0.16 }
-    );
-    $$(".reveal").forEach((item) => observer.observe(item));
-  }
-
-  function initPwa() {
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    refreshIcons();
-    initReveal();
-    initPwa();
-    if (page === "landing") initLandingAuth();
-    if (page === "app") initAppPage();
   });
-})();
+}
+
+function initInstallPrompt() {
+  let installEvent = null;
+  const button = $("#installApp");
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    installEvent = event;
+    button?.classList.add("available");
+  });
+
+  button?.addEventListener("click", async () => {
+    if (!installEvent) return;
+    installEvent.prompt();
+    await installEvent.userChoice;
+    installEvent = null;
+    button.classList.remove("available");
+  });
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+    });
+  }
+}
+
+function initButtons() {
+  $("#runDiagnosis")?.addEventListener("click", runDiagnosis);
+  $("#generateMarketing")?.addEventListener("click", generateMarketing);
+  $("#runFinance")?.addEventListener("click", runFinance);
+  $("#runAlerts")?.addEventListener("click", runAlerts);
+}
+
+async function initDefaultModuleData() {
+  await Promise.allSettled([runDiagnosis(), generatePlan("30"), generateMarketing(), runFinance(), runAlerts()]);
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  refreshIcons();
+  initReveal();
+  initHeroCanvas();
+  initHeroMetrics();
+  initDashboard();
+  initDemo();
+  initWorkspaceTabs();
+  initChat();
+  initPlanner();
+  initAuth();
+  initReportDownload();
+  initInstallPrompt();
+  initButtons();
+  await initDefaultModuleData();
+  refreshIcons();
+});
