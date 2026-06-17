@@ -135,7 +135,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
   import {
-    getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword,
+    getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signInWithEmailAndPassword,
     createUserWithEmailAndPassword, sendPasswordResetEmail, updateProfile,
     signOut, onAuthStateChanged, setPersistence, browserLocalPersistence
   } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
@@ -180,6 +180,8 @@
       "auth/popup-closed-by-user": "Login cancelado antes de concluir.",
       "auth/popup-blocked": "O navegador bloqueou a janela de login. Libere pop-ups e tente novamente.",
       "auth/unauthorized-domain": "Este domínio ainda não está autorizado no Firebase Authentication.",
+      "auth/cancelled-popup-request": "Já existe uma janela de login aberta. Feche e tente novamente.",
+      "auth/operation-not-supported-in-this-environment": "Este navegador bloqueou o login por janela. Vamos tentar redirecionar.",
       "permission-denied": "Permissão negada no banco de dados. Confira as regras do Firestore."
     };
     return messages[code] || error?.message || "Não foi possível concluir a operação.";
@@ -237,7 +239,28 @@
     }catch(error){ throw new Error(mapAuthError(error)); }
   }
   async function signInEmail(email,password){ try{ const result=await signInWithEmailAndPassword(auth,email,password); await ensureProfile(result.user); return result.user; }catch(error){ throw new Error(mapAuthError(error)); } }
-  async function signInGoogle(){ try{ const result=await signInWithPopup(auth,provider); await ensureProfile(result.user); return result.user; }catch(error){ throw new Error(mapAuthError(error)); } }
+  async function signInGoogle(){
+    try{
+      const popupLogin = signInWithPopup(auth, provider);
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject({ code: "auth/popup-timeout", message: "A janela do Google demorou para responder." }), 25000)
+      );
+      const result = await Promise.race([popupLogin, timeout]);
+      await ensureProfile(result.user);
+      return result.user;
+    }catch(error){
+      const code = error?.code || "";
+      if (
+        code === "auth/popup-blocked" ||
+        code === "auth/operation-not-supported-in-this-environment" ||
+        code === "auth/popup-timeout"
+      ) {
+        await signInWithRedirect(auth, provider);
+        return null;
+      }
+      throw new Error(mapAuthError(error));
+    }
+  }
   async function resetPassword(email){ try{ await sendPasswordResetEmail(auth,email); }catch(error){ throw new Error(mapAuthError(error)); } }
 
   function firebaseUserToState(user){ return user ? {uid:user.uid,email:user.email||"",name:user.displayName||(user.email?user.email.split("@")[0]:"Usuário"),photoURL:user.photoURL||"",mode:"firebase"} : null; }
@@ -342,7 +365,22 @@
     catch(error){ setAuthMessage(mapAuthError(error),"error"); }
     finally{ setAuthFieldsDisabled(false); setLoading(button,false); }
   }
-  async function handleGoogle(){ const button=$("#authGoogle"); setLoading(button,true,"Abrindo..."); setAuthFieldsDisabled(true); setAuthMessage("Abrindo entrada com Google...","info"); try{ const user=await signInGoogle(); await loadCloudData(user); closeAuth(); showApp(); toast("Entrada com Google realizada."); } catch(error){ setAuthMessage(mapAuthError(error),"error"); } finally{ setAuthFieldsDisabled(false); setLoading(button,false); } }
+  async function handleGoogle(){ const button=$("#authGoogle"); setLoading(button,true,"Abrindo..."); setAuthFieldsDisabled(true); setAuthMessage("Abrindo entrada com Google...","info"); try{
+      const user=await signInGoogle();
+      if(!user){
+        setAuthMessage("Redirecionando para concluir o login...", "info");
+        return;
+      }
+      await loadCloudData(user);
+      closeAuth();
+      showApp();
+      toast("Entrada com Google realizada.");
+    } catch(error){
+      setAuthMessage(mapAuthError(error),"error");
+    } finally{
+      setAuthFieldsDisabled(false);
+      setLoading(button,false);
+    } }
   async function handleResetPassword(){ const email=$("#authEmail").value.trim().toLowerCase(); if(!validateEmail(email)){ setAuthMessage("Informe seu e-mail para recuperar a senha.","error"); $("#authEmail")?.focus(); return; } setAuthFieldsDisabled(true); setAuthMessage("Enviando instruções de recuperação...","info"); try{ await resetPassword(email); setAuthMessage("Enviamos as instruções de recuperação para seu e-mail.","success"); }catch(error){ setAuthMessage(mapAuthError(error),"error"); }finally{ setAuthFieldsDisabled(false); } }
 
   function showLegal(type){ const privacy=`<span class="eyebrow">Privacidade</span><h1>Política de privacidade</h1><p>Coletamos dados de conta, dados do negócio, histórico de perguntas e status de assinatura para operar o CEO de Bolso AI.</p><p>Os dados ficam vinculados à sua conta e são usados para personalizar diagnósticos, planos e relatórios.</p><p>Pagamentos são processados por provedor externo quando a assinatura estiver ativa. Não armazenamos dados completos de cartão.</p>`; const terms=`<span class="eyebrow">Termos</span><h1>Termos de uso</h1><p>O CEO de Bolso AI oferece apoio gerencial, financeiro e de marketing com IA. As recomendações não substituem contabilidade, consultoria jurídica ou auditoria profissional.</p><p>Usuários gratuitos possuem limite de 5 usos de IA por mês. Recursos premium dependem de assinatura ativa.</p><p>O usuário é responsável por revisar as recomendações antes de aplicar qualquer decisão no negócio.</p>`; $("#landing").classList.add("hidden"); $("#app").classList.add("hidden"); $("#legal").classList.remove("hidden"); $("#legalContent").innerHTML=type==="privacy"?privacy:terms; window.scrollTo(0,0); }
@@ -379,6 +417,19 @@
     $("#localPremium").addEventListener("click",async()=>{ state.premium=true; saveState(); renderUsage(); try{ if(auth.currentUser) await saveProfile({premium:true}); }catch{} toast("Premium liberado nesta conta."); });
     $("#startPayment").addEventListener("click",()=>toast("A assinatura online será ativada em breve."));
     $$("[data-legal]").forEach(b=>b.addEventListener("click",()=>showLegal(b.dataset.legal))); $("#closeLegal").addEventListener("click",showLanding);
+
+    getRedirectResult(auth).then(async (result)=>{
+      if(result?.user){
+        await ensureProfile(result.user);
+        await loadCloudData(result.user);
+        closeAuth();
+        showApp();
+        toast("Entrada com Google realizada.");
+      }
+    }).catch((error)=>{
+      openAuth("login");
+      setAuthMessage(mapAuthError(error), "error");
+    });
 
     onAuthStateChanged(auth, async (user)=>{ if(user){ await loadCloudData(user); } else { if(state.user?.mode==="firebase"){ state.user=null; saveState(); renderAll(); } } });
     if(state.user) renderAll(); fillForm();
