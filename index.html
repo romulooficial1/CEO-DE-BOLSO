@@ -474,7 +474,20 @@
       setAuthMessage(mapAuthError(error), "error");
     });
 
-    onAuthStateChanged(auth, async (user)=>{ if(user){ await loadCloudData(user); } else { if(state.user?.mode==="firebase"){ state.user=null; saveState(); renderAll(); } } });
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await loadCloudData(user);
+        closeAuth();
+        showApp();
+      } else {
+        if (state.user?.mode === "firebase") {
+          state.user = null;
+          saveState();
+          renderAll();
+        }
+        showLanding();
+      }
+    });
     if(state.user) renderAll(); fillForm();
   }
   init();
