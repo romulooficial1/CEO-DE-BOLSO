@@ -688,6 +688,59 @@
     if(state.user?.mode==="local"){ showApp(); openOnboarding(); } else if(state.user) renderAll(); fillForm();
   }
   init();
+
+  // Correção de navegação interna da área logada
+  function activatePanelView(viewName) {
+    if (!viewName) return;
+
+    $$(".view").forEach((view) => {
+      const isActive = view.id === `view-${viewName}`;
+      view.classList.toggle("active", isActive);
+      view.setAttribute("aria-hidden", isActive ? "false" : "true");
+    });
+
+    $$(".nav-btn[data-view]").forEach((btn) => {
+      const isActive = btn.dataset.view === viewName;
+      btn.classList.toggle("active", isActive);
+      if (isActive) btn.setAttribute("aria-current", "page");
+      else btn.removeAttribute("aria-current");
+    });
+
+    const titles = {
+      dashboard: ["Visão geral", "Seus números e prioridades em um só lugar."],
+      business: ["Seu negócio", "Atualize os dados usados nas análises."],
+      chat: ["Consultor", "Pergunte sobre vendas, caixa, marketing, preço e crescimento."],
+      diagnosis: ["Diagnóstico", "Veja riscos, oportunidades e prioridades."],
+      plans: ["Planos de ação", "Transforme diagnóstico em execução."],
+      marketing: ["Marketing", "Crie campanhas, posts e ideias para vender mais."],
+      reports: ["Relatório", "Baixe um resumo profissional do seu negócio."],
+      premium: ["Premium", "Desbloqueie recursos completos para crescer com mais clareza."]
+    };
+
+    if (titles[viewName]) {
+      $("#appHeading").textContent = titles[viewName][0];
+      $("#appSubheading").textContent = titles[viewName][1];
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.addEventListener("click", (event) => {
+    const viewBtn = event.target.closest("[data-view]");
+    if (viewBtn) {
+      event.preventDefault();
+      activatePanelView(viewBtn.dataset.view);
+      return;
+    }
+
+    const jumpBtn = event.target.closest("[data-view-jump]");
+    if (jumpBtn) {
+      event.preventDefault();
+      activatePanelView(jumpBtn.dataset.viewJump);
+      return;
+    }
+  });
+
 </script>
 </body>
 </html>
