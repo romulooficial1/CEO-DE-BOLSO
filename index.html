@@ -504,6 +504,32 @@
   function collectForm(){ const f=$("#businessForm"); return Object.fromEntries(["name","type","location","revenue","expenses","customers","goal","challenge","mainGoal"].map(k=>[k,["revenue","expenses","customers","goal"].includes(k)?n(f.elements[k].value):f.elements[k].value.trim()])); }
   function renderAll(){ renderDashboard(); fillForm(); }
   function setView(v){ $$(".view").forEach(x=>{const active=x.id===`view-${v}`;x.classList.toggle("active",active);x.setAttribute("aria-hidden",String(!active));}); $$(".nav-btn[data-view]").forEach(b=>{const active=b.dataset.view===v;b.classList.toggle("active",active);active?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current");}); const titles={dashboard:["Visão geral","Seus números e prioridades em um só lugar."],business:["Configure seu negócio","Dados essenciais para análises realmente úteis."],chat:["Consultor","Pergunte sobre finanças, marketing, vendas e crescimento."],diagnosis:["Diagnóstico empresarial","Nota, riscos e oportunidades."],plans:["Planos de ação","Tarefas para 7, 30 e 90 dias."],marketing:["Marketing guiado","Conteúdo, anúncios e calendário semanal."],reports:["Relatório executivo","Documento pronto para baixar."],premium:["Plano completo","Recursos avançados para vender mais, controlar melhor e executar com clareza."]}; $("#appHeading").textContent=titles[v]?.[0]||"CEO de Bolso AI"; $("#appSubheading").textContent=titles[v]?.[1]||""; if(v==="reports"&&state.business) buildReport(); if(window.innerWidth<961) $("#appHeading")?.scrollIntoView({block:"start"}); }
+
+  function bindPanelNavigation(){
+    $$(".nav-btn[data-view]").forEach((btn)=>{
+      if(btn.dataset.boundPanelNav==="1") return;
+      btn.dataset.boundPanelNav="1";
+      btn.addEventListener("click",(event)=>{
+        event.preventDefault();
+        setView(btn.dataset.view);
+      });
+    });
+
+    $$("[data-view-jump]").forEach((btn)=>{
+      if(btn.dataset.boundPanelJump==="1") return;
+      btn.dataset.boundPanelJump="1";
+      btn.addEventListener("click",(event)=>{
+        event.preventDefault();
+        setView(btn.dataset.viewJump);
+      });
+    });
+
+    $("#upgradeTop")?.addEventListener("click",(event)=>{
+      event.preventDefault();
+      setView("premium");
+    });
+  }
+
   function listBlock(title, items){ return `<article class="result-item"><strong>${escapeHtml(title)}</strong><ul class="check-list">${(items||[]).map(i=>`<li>${escapeHtml(i)}</li>`).join("")}</ul></article>`; }
   function premiumUpsell(title="Desbloqueie a versão completa"){ return premium()?"":`<article class="result-item"><strong>${escapeHtml(title)}</strong><p class="muted">Premium libera análises ilimitadas, plano de 90 dias, diagnóstico avançado, marketing completo e relatório executivo.</p><button class="btn btn-primary small" type="button" data-view-jump="premium"><i data-lucide="gem"></i>Conhecer Premium</button></article>`; }
   function renderDiagnosis(d){ state.lastDiagnosis=d; saveState(); $("#diagnosisResult").innerHTML=[`<article class="result-item"><strong>Nota geral: ${d.score}/100</strong><p class="muted">${escapeHtml(d.executiveSummary)}</p></article>`,listBlock("Pontos fortes",d.strengths),listBlock("Pontos fracos",d.weaknesses),listBlock("Riscos",d.risks),listBlock("Oportunidades",d.opportunities),listBlock("Plano de ação",d.actionPlan),...(premium()?[listBlock("KPIs para acompanhar",d.kpis||[]),listBlock("Ações Premium dos próximos 30 dias",d.premiumActions||[])]:[]),`<article class="result-item"><strong>Marketing</strong><p class="muted">${escapeHtml(d.marketingRecommendation)}</p></article>`,`<article class="result-item"><strong>Financeiro</strong><p class="muted">${escapeHtml(d.financialRecommendation)}</p></article>`,`<article class="result-item"><strong>Prioridade da semana</strong><p class="muted">${escapeHtml(d.weekPriority)}</p></article>`,premiumUpsell("Diagnóstico avançado é Premium")].join(""); icons(); }
@@ -689,58 +715,7 @@
   }
   init();
 
-  // Correção de navegação interna da área logada
-  function activatePanelView(viewName) {
-    if (!viewName) return;
-
-    $$(".view").forEach((view) => {
-      const isActive = view.id === `view-${viewName}`;
-      view.classList.toggle("active", isActive);
-      view.setAttribute("aria-hidden", isActive ? "false" : "true");
-    });
-
-    $$(".nav-btn[data-view]").forEach((btn) => {
-      const isActive = btn.dataset.view === viewName;
-      btn.classList.toggle("active", isActive);
-      if (isActive) btn.setAttribute("aria-current", "page");
-      else btn.removeAttribute("aria-current");
-    });
-
-    const titles = {
-      dashboard: ["Visão geral", "Seus números e prioridades em um só lugar."],
-      business: ["Seu negócio", "Atualize os dados usados nas análises."],
-      chat: ["Consultor", "Pergunte sobre vendas, caixa, marketing, preço e crescimento."],
-      diagnosis: ["Diagnóstico", "Veja riscos, oportunidades e prioridades."],
-      plans: ["Planos de ação", "Transforme diagnóstico em execução."],
-      marketing: ["Marketing", "Crie campanhas, posts e ideias para vender mais."],
-      reports: ["Relatório", "Baixe um resumo profissional do seu negócio."],
-      premium: ["Premium", "Desbloqueie recursos completos para crescer com mais clareza."]
-    };
-
-    if (titles[viewName]) {
-      $("#appHeading").textContent = titles[viewName][0];
-      $("#appSubheading").textContent = titles[viewName][1];
-    }
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  document.addEventListener("click", (event) => {
-    const viewBtn = event.target.closest("[data-view]");
-    if (viewBtn) {
-      event.preventDefault();
-      activatePanelView(viewBtn.dataset.view);
-      return;
-    }
-
-    const jumpBtn = event.target.closest("[data-view-jump]");
-    if (jumpBtn) {
-      event.preventDefault();
-      activatePanelView(jumpBtn.dataset.viewJump);
-      return;
-    }
-  });
-
+  bindPanelNavigation();
 </script>
 </body>
 </html>
